@@ -221,6 +221,7 @@ def main():
 
 # COMMAND ----------
 
+<<<<<<< HEAD
 main()
 
 # COMMAND ----------
@@ -248,3 +249,6 @@ main()
 
 # MAGIC %sh
 # MAGIC ls -lrt /dbfs/mnt/sail/bronze/gld360/inbound/landing/fact_order/
+=======
+main()
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3

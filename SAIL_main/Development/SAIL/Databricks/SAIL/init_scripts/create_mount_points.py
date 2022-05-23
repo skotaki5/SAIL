@@ -1,6 +1,11 @@
 # Databricks notebook source
+<<<<<<< HEAD
 storage_account_name=''
 sas=''
+=======
+storage_account_name='sasaildeveastus2'
+sas='?sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacupx&se=2030-03-02T15:32:05Z&st=2022-03-02T07:32:05Z&spr=https&sig=SZS%2FnIy0%2BNK2y%2B8%2B0xUscKokdBy%2BbiaY97Ersy7RK%2Bo%3D'
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 
 # COMMAND ----------
 
@@ -26,4 +31,8 @@ except:
 # COMMAND ----------
 
 # MAGIC %fs
+<<<<<<< HEAD
 # MAGIC ls "/mnt/sail/silver"
+=======
+# MAGIC ls "/mnt/sail"
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3

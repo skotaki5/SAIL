@@ -219,7 +219,11 @@ def get_query4():
   cast(NULL as string) as LogiNext_OrderCurrentSegment,      
   NVL(FTO.OrderStatusName,FTO.SOURCE_ORDER_STATUS) OrderStatusName, 
   
+<<<<<<< HEAD
   CASE WHEN FTO.SOURCE_SYSTEM_KEY = 1011 THEN FTTR.LEVEL_OF_SERVICE_CODE                ---10/11/2021
+=======
+   CASE WHEN FTO.SOURCE_SYSTEM_KEY = 1011 THEN FTTR.LEVEL_OF_SERVICE_CODE                ---10/11/2021
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
        WHEN FTO.tt_is_Inbound = 0 AND FTO.tt_is_Managed = 1 AND FTTR.SOURCE_SYSTEM_KEY IN (1021,1022) THEN FTTR.LEVEL_OF_SERVICE_CODE
        WHEN FTO.SERVICE_NAME_SR = 'Customer Pickup' THEN FTO.SERVICE_NAME_SR
        WHEN FTO.SERVICE_NAME_SR = FTO.SERVICE_NAME_LC THEN concat_ws('-',RIGHT(FTO.SERVICELEVELNAME_LC,7),FTO.SERVICE_NAME_SR) 
@@ -230,8 +234,12 @@ def get_query4():
       WHEN FTO.tt_is_Inbound = 0 AND FTO.tt_is_Managed = 1 AND FTTR.SOURCE_SYSTEM_KEY IN (1021,1022) THEN FTTR.CARRIER_CODE
       WHEN FTO.SERVICE_NAME_SR = 'Customer Pickup' THEN FTO.SERVICE_NAME_SR 
       WHEN FTO.SERVICE_NAME_SR = FTO.SERVICE_NAME_LC THEN FTO.CARRIERNAME_LC 
+<<<<<<< HEAD
       ELSE FTO.CarrierName END Carrier,    -- change log  
       
+=======
+      ELSE FTO.CarrierName END Carrier,    -- change log         
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
   CASE WHEN FTO.SERVICE_NAME_SR = 'Customer Pickup' THEN FTO.SERVICE_NAME_SR WHEN FTO.SERVICE_NAME_SR = FTO.SERVICE_NAME_LC THEN concat_ws('-',RIGHT(FTO.SERVICELEVELNAME_LC,7),FTO.SERVICE_NAME_SR) ELSE FTO.ServiceLevelCode END ServiceLevelCode,          
   CASE WHEN FTO.SERVICE_NAME_SR = 'Customer Pickup' THEN FTO.SERVICE_NAME_SR WHEN FTO.SERVICE_NAME_SR = FTO.SERVICE_NAME_LC THEN FTO.CARRIERNAME_LC ELSE FTO.CarrierCode END CarrierCode,       
   FTO.LOCATION_NAME ConsigneeName,            
@@ -266,6 +274,7 @@ def get_query4():
   cast ( NULL as string) as ORDER_REF_5_LABEL,      
   FTOR.ORDER_REF_5_VALUE,      
   cast ( NULL as string) as ORDER_REF_6_LABEL,      
+<<<<<<< HEAD
   FTOR.ORDER_REF_6_VALUE as ORDER_REF_6_VALUE, --change log UPSGLD-15869     
   cast ( NULL as string) as ORDER_REF_7_LABEL,      
   FTOR.ORDER_REF_7_VALUE as ORDER_REF_7_VALUE, --change log UPSGLD-15869       
@@ -285,18 +294,48 @@ def get_query4():
   FTOR.ORDER_REF_14_VALUE as ORDER_REF_14_VALUE,--change log UPSGLD-15869        
   cast ( NULL as string) as ORDER_REF_15_LABEL,      
   FTOR.ORDER_REF_15_VALUE as ORDER_REF_15_VALUE, --change log UPSGLD-15869          
+=======
+  cast ( NULL as string) as ORDER_REF_6_VALUE,      
+  cast ( NULL as string) as ORDER_REF_7_LABEL,      
+  cast ( NULL as string) as ORDER_REF_7_VALUE,      
+  cast ( NULL as string) as ORDER_REF_8_LABEL,      
+  cast ( NULL as string) as ORDER_REF_8_VALUE,      
+  cast ( NULL as string) as ORDER_REF_9_LABEL,      
+  cast ( NULL as string) as ORDER_REF_9_VALUE,      
+  cast ( NULL as string) as ORDER_REF_10_LABEL,      
+  cast ( NULL as string) as ORDER_REF_10_VALUE,      
+  cast ( NULL as string) as ORDER_REF_11_LABEL,      
+  cast ( NULL as string) as ORDER_REF_11_VALUE,      
+  cast ( NULL as string) as ORDER_REF_12_LABEL,      
+  cast ( NULL as string) as ORDER_REF_12_VALUE,      
+  cast ( NULL as string) as ORDER_REF_13_LABEL,      
+  cast ( NULL as string) as ORDER_REF_13_VALUE,      
+  cast ( NULL as string) as ORDER_REF_14_LABEL,      
+  cast ( NULL as string) as ORDER_REF_14_VALUE,      
+  cast ( NULL as string) as ORDER_REF_15_LABEL,      
+  cast ( NULL as string) as ORDER_REF_15_VALUE,         
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
   CASE WHEN FTTR.SOURCE_ORDER_TYPE  = 'Transportation' THEN 1 ELSE 0 END TransOnly,      
   CASE WHEN FTTR.SOURCE_ORDER_STATE = 'Vendor Assigned' AND FTTR.ACTUAL_SHIPMENT_DATE IS NULL THEN 'InTransit to Pick-up'       
   WHEN FTTR.ACTUAL_SHIPMENT_DATE IS NOT NULL AND FTTR.ACTUAL_DELIVERY_DATE IS NULL THEN 'InTransit to Delivery'      
   WHEN FTTR.ACTUAL_DELIVERY_DATE IS NOT NULL THEN 'Delivered'      
   WHEN FTTR.ACTUAL_DELIVERY_DATE > FTTR.SCHEDULED_DELIVERY_DATE THEN 'Late Deliveries' END TransMilestone,      
   FTTE.EXCEPTION_REASON ExceptionCode,      
+<<<<<<< HEAD
   CASE WHEN FTTR.SOURCE_SYSTEM_KEY IN (1011) THEN  FTTR.LOAD_LATEST_DELIVERY_DATE 
        ELSE FTTR.ORIGINAL_SCHEDULED_DELIVERY_DATE
   END OriginalScheduledDeliveryDateTime,
        
   FTTR.UTC_ORIGINAL_SCHEDULED_DELIVERY_DATE UTC_OriginalScheduledDeliveryDateTime,      
 
+=======
+-- OriginalScheduledDeliveryDateTime,     
+ -- CASE WHEN FTO.SOURCE_SYSTEM_NAME = 'SPLUS' THEN FTTR.ORIGINAL_SCHEDULED_DELIVERY_DATE ELSE FTTR.LOAD_LATEST_DELIVERY_DATE END OriginalScheduledDeliveryDateTime,     
+ CASE WHEN FTTR.SOURCE_SYSTEM_KEY IN (1011) THEN  FTTR.LOAD_LATEST_DELIVERY_DATE 
+       ELSE FTTR.ORIGINAL_SCHEDULED_DELIVERY_DATE
+  END OriginalScheduledDeliveryDateTime,
+  FTTR.UTC_ORIGINAL_SCHEDULED_DELIVERY_DATE UTC_OriginalScheduledDeliveryDateTime,      
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
   FTTR.SCHEDULED_DELIVERY_DATE ActualScheduledDeliveryDateTime,      
   FTTR.UTC_SCHEDULED_DELIVERY_DATE UTC_ActualScheduledDeliveryDateTime,      
   FTTR.ACTUAL_DELIVERY_DATE ActualDeliveryDate,      
@@ -337,18 +376,32 @@ def get_query4():
   FTTR.LOAD_EARLIEST_PICKUP_DATE AS PickUPDateTime,    
   FTTR.LOAD_LATEST_PICKUP_DATE AS ScheduledPickUpDateTime,    
   FTO.EXT_CUSTOMER_ACCOUNT_NUMBER AS Account_number  ,
+<<<<<<< HEAD
   FTO.IS_MANAGED, -- change log
+=======
+   FTO.IS_MANAGED, -- change log
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
   CASE WHEN mtrd.TemperatureThreshold IS NULL THEN NULL ELSE CONCAT(mtrd.TemperatureThreshold,' ',mtrd.TemperatureRange_UOM) END AS TemperatureThreshold, -- change log
   mtrd.TemperatureRange_Min, -- change log
   mtrd.TemperatureRange_Max, -- change log
   mtrd.TemperatureRange_UOM, -- change log
   FTO.order_sduk,
+<<<<<<< HEAD
   FTO.is_deleted  
   ,FTO.UTC_ORDER_PLACED_MONTH_part_key
 FROM fact_order_tv FTO       
     LEFT JOIN {fact_order_reference} FTOR  ON (FTOR.SOURCE_SYSTEM_KEY = FTO.SOURCE_SYSTEM_KEY AND FTOR.UPS_ORDER_NUMBER = FTO.UPS_ORDER_NUMBER AND FTOR.QUERY_SEQUENCE = 2)    ---no duplicate for SPLUS  need to check for other source system
     LEFT JOIN {fact_transportation} FTTR  ON (CASE WHEN FTTR.TRANS_ONLY_FLAG = 'NON_TRANS' THEN   NVL(FTTR.UPS_WMS_SOURCE_SYSTEM_KEY,FTO.SOURCE_SYSTEM_KEY) ELSE FTTR.SOURCE_SYSTEM_KEY END = FTO.SOURCE_SYSTEM_KEY AND CASE WHEN FTTR.TRANS_ONLY_FLAG  
  = 'NON_TRANS' THEN FTTR.UPS_WMS_ORDER_NUMBER ELSE FTTR.UPS_ORDER_NUMBER END = FTO.UPS_ORDER_NUMBER) ---no duplicate for SPLUS  need to check for other source system         
+=======
+  concat(FTTR.source_system_key,'||',FTTR.TRANSPORTATION_SDUK) as TRANSPORTATION_SDUK,
+  FTO.is_deleted  
+  ,FTO.UTC_ORDER_PLACED_MONTH_part_key
+FROM fact_order_tv FTO       
+    LEFT JOIN {fact_order_reference} FTOR  ON (FTOR.SOURCE_SYSTEM_KEY = FTO.SOURCE_SYSTEM_KEY AND FTOR.UPS_ORDER_NUMBER = FTO.UPS_ORDER_NUMBER AND FTOR.QUERY_SEQUENCE = 2)    --- ---no duplicate  for all source system; verified in production
+    LEFT JOIN {fact_transportation} FTTR  ON (CASE WHEN FTTR.TRANS_ONLY_FLAG = 'NON_TRANS' THEN   NVL(FTTR.UPS_WMS_SOURCE_SYSTEM_KEY,FTO.SOURCE_SYSTEM_KEY) ELSE FTTR.SOURCE_SYSTEM_KEY END = FTO.SOURCE_SYSTEM_KEY AND CASE WHEN FTTR.TRANS_ONLY_FLAG  -- has 1 to many relation ship hence bringing its key in the result
+ = 'NON_TRANS' THEN FTTR.UPS_WMS_ORDER_NUMBER ELSE FTTR.UPS_ORDER_NUMBER END = FTO.UPS_ORDER_NUMBER)
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
      LEFT JOIN (select SOURCE_SYSTEM_KEY,UPS_ORDER_NUMBER,EXCEPTION_REASON,row_number() over(partition by SOURCE_SYSTEM_KEY,UPS_ORDER_NUMBER order by UTC_EXCEPTION_CREATED_DATE desc) rn from {fact_transportation_exception} where EXCEPTION_PRIMARY_INDICATOR = 1) FTTE  ON (FTTE.SOURCE_SYSTEM_KEY = FTO.SOURCE_SYSTEM_KEY AND FTTE.UPS_ORDER_NUMBER = FTO.UPS_ORDER_NUMBER) and FTTE.rn = 1
      LEFT JOIN (select distinct CARRIER_NAME,LEVEL_OF_SERVICE_DESC,TemperatureThreshold,TemperatureRange_Min,TemperatureRange_Max,TemperatureRange_UOM
 from {dim_carrier_los} cls join {map_temperature_range_details} mp on cls.CARRIER_CODE = mp.CarrierCode and cls.LEVEL_OF_SERVICE_CODE = mp.LevelOfService) mtrd
@@ -367,7 +420,11 @@ def get_query5A(hwm):
   SELECT  FTO.*    
   FROM {digital_summary_milestone_activity} FTO 
   INNER JOIN delta_fetch_tv FTV on (FTO.UPSOrderNumber = FTV.UPS_ORDER_NUMBER)
+<<<<<<< HEAD
   where FTO.ActivityDate is not null
+=======
+  where FTO.ActivityDate is not null and ActivityDate >=current_date - {days_back}
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
   """.format(**source_tables,hwm=hwm,days_back=days_back)
   logger.debug("query : " + query)
   return (query)
@@ -540,7 +597,11 @@ def get_query7():
   FTO.DestinationContactName,    
   FTO.PickUPDateTime,    
   FTO.ScheduledPickUpDateTime,    
+<<<<<<< HEAD
   FTO.Account_number, 
+=======
+  FTO.Account_number,    
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
   --MLB.ShipmentEstimatedDeliveryDate EstimatedDeliveryDateTime, --change log 
  CASE WHEN FTO.SourceSystemKey = 1002 THEN FTO.ActualScheduledDeliveryDateTime ELSE MLB.ShipmentEstimatedDeliveryDate END AS EstimatedDeliveryDateTime, --change log
   MLB.ShipmentActualDeliveryDate ActualDeliveryDateTime,
@@ -551,8 +612,17 @@ def get_query7():
   FTO.TemperatureRange_UOM,
   0 Is_healthcare,
   FTO.order_sduk,
+<<<<<<< HEAD
   FTO.is_deleted
   ,FTO.UTC_ORDER_PLACED_MONTH_part_key
+=======
+  FTO.TRANSPORTATION_SDUK,
+  FTO.is_deleted,
+  FTO.UTC_ORDER_PLACED_MONTH_part_key,
+  row_number() over (PARTITION BY FTO.SourceSystemKey,FTO.UPSOrderNumber,FTO.order_sduk 
+                             ORDER BY FTO.TRANSPORTATION_SDUK NULLS FIRST
+                             ) as transport_rn
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 FROM SUMMARY_ORDERS FTO      
 LEFT JOIN FTOL FTOL ON (FTO.SourceSystemKey = FTOL.SOURCE_SYSTEM_KEY AND FTO.UPSOrderNumber = FTOL.UPS_ORDER_NUMBER)       
 LEFT JOIN Milestone ML ON (FTO.SourceSystemKey = ML.SourceSystemKey AND  FTO.AccountId = ML.AccountId AND FTO.UPSOrderNumber = ML.UPSOrderNumber)      
@@ -580,7 +650,10 @@ def main():
         audit_result['start_time'] = start_time
         ################################################################################################
         hwm=get_hwm('gold',digital_summary_orders_et)
+<<<<<<< HEAD
         #hwm = '1900-01-01 00:00:00'
+=======
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
         logger.info(f'hwm {digital_summary_orders_et}: {hwm}')
         
         spark.sql(get_delta_query(hwm))
@@ -609,7 +682,11 @@ def main():
         logger.info("query 7 finished")
   
         ###################### generating hash key  #############################
+<<<<<<< HEAD
         hash_key_columns = ['order_sduk']
+=======
+        hash_key_columns = ['SourceSystemKey','UPSOrderNumber','order_sduk','transport_rn']
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
         logger.debug(f"columns: {hash_key_columns}")
   
         logger.debug("Adding hash_key")
@@ -630,7 +707,11 @@ def main():
         logger.debug("Adding audit columns")
         src_df = add_audit_columns(src_df, pid,datetime.now(),datetime.now())
   
+<<<<<<< HEAD
         primary_keys = ['order_sduk']
+=======
+        primary_keys = ['SourceSystemKey','UPSOrderNumber','order_sduk','transport_rn']
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
         logger.debug('primary_keys: {primary_keys}'.format(primary_keys=primary_keys))
   
         logger.info(f'Merging to delta path: {digital_summary_orders_path}')

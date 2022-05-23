@@ -12,6 +12,13 @@ import json
 
 # COMMAND ----------
 
+<<<<<<< HEAD
+=======
+start_time = datetime.now(tz=timezone(time_zone)).strftime("%Y-%m-%d %H:%M:%S")
+
+# COMMAND ----------
+
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 def _get_logger(Timezone,level=logging.INFO):
     logging.Formatter.converter = lambda *args: datetime.now(tz=timezone(Timezone)).timetuple()
     logger = spark._jvm.org.apache.log4j
@@ -208,6 +215,43 @@ def mergeToDelta(source_df,target_folder_path,primary_keys):
 
 # COMMAND ----------
 
+<<<<<<< HEAD
+=======
+def insertOnlyMergeToDelta(source_df,target_folder_path,primary_keys):
+    logger.debug("tgt_delta_path: " + target_folder_path)
+    deltaDf = DeltaTable.forPath(spark, target_folder_path)
+      
+    logger.debug("Creating join statement")
+    join_condition =[]
+    join_keys = primary_keys
+    logger.debug("Primary keys: {join_keys}".format(join_keys=join_keys))
+    
+    join_condition = ["s.{key} = t.{key}".format(key=x) for x in join_keys]
+    
+    logger.info("Join condition:  {join_condition}".format(join_condition= " and ".join(join_condition)))
+    
+    columns = source_df.schema.fieldNames()
+    
+    logger.debug("Columns : {columns}".format(columns=columns))
+    
+    insert_columns = {"t.{col}".format(col=x) : "s.{col}".format(col=x) for x in columns}
+    logger.debug("Insert columns:  {insert_columns}".format(insert_columns=insert_columns))
+    
+    logger.info("Running upsert")
+    (deltaDf.alias("t")
+     .merge(
+       source_df.alias("s"),
+       " and ".join(join_condition)+' and t.is_deleted=0'
+           )
+     .whenNotMatchedInsert(values =insert_columns)
+     .execute()
+    )
+    history_df = deltaDf.history(10).filter(col("operation") == "MERGE").sort(col("timestamp").desc())
+    merge_stat_parser(history_df)
+
+# COMMAND ----------
+
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 #def get_hwm(table_name):
 #  logger.debug("table_name : {table_name}".format(table_name=table_name))
 #  query = """SELECT max(hwm) from {delta_control} where table_name = lower('{table_name}')""".format(**source_tables,table_name=table_name)

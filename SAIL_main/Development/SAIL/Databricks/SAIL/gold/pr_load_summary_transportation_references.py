@@ -56,11 +56,20 @@ def get_delta_query(hwm):
         as
          select ups_order_number from {fact_order_dim_inc} where dl_update_timestamp>='{hwm}'
         union 
+<<<<<<< HEAD
           select UPS_ORDER_NUMBER  from {fact_transportation} FTTR
           where NVL(FTTR.TRANS_ONLY_FLAG,'NULL')= 'TRANS ONLY'  and UPS_ORDER_NUMBER is not null and dl_update_timestamp>='{hwm}'
         union 
           select UPS_WMS_ORDER_NUMBER as UPS_ORDER_NUMBER  from {fact_transportation} FTTR
             where NVL(FTTR.TRANS_ONLY_FLAG,'NULL') <> 'TRANS ONLY'  and UPS_WMS_ORDER_NUMBER is not null and dl_update_timestamp>='{hwm}'
+=======
+            select case when NVL(FTTR.TRANS_ONLY_FLAG,'NULL') = 'NON_TRANS' and UPS_WMS_ORDER_NUMBER is not null 
+                         then  UPS_WMS_ORDER_NUMBER
+                         else UPS_ORDER_NUMBER 
+                 end as ups_order_number 
+          from {fact_transportation} FTTR
+          where  dl_update_timestamp>='{hwm}'
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
         union
          select UPS_ORDER_NUMBER from {fact_transportation_references} TREF  where dl_update_timestamp>='{hwm}'
         """.format(**source_tables,hwm=hwm)
@@ -71,7 +80,12 @@ def get_delta_query(hwm):
 
 # DBTITLE 1,Source query
 def get_query():
+<<<<<<< HEAD
   query =("""SELECT distinct
+=======
+  query =("""
+  SELECT distinct
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
   TREF.UPS_ORDER_NUMBER As UPSOrderNumber,
   TREF.SOURCE_SYSTEM_KEY As SourceSystemKey,
   TREF.SHIPUNIT_ID As LOAD_ID,
@@ -79,13 +93,24 @@ def get_query():
   TREF.REFERENCE_TYPE As ReferenceType,
   TREF.REFRENCE_VALUE As ReferenceValue,
   TREF.REFERENCE_LEVEL As ReferenceLevel,
+<<<<<<< HEAD
   concat(TREF.source_system_key,'||',TREF.REFERENCE_SDUK) as REFERENCE_SDUK, 
+=======
+  concat(FO.source_system_key,'||',FO.order_sduk) as ORDER_SDUK,
+  concat(TREF.source_system_key,'||',TREF.REFERENCE_SDUK) as REFERENCE_SDUK, 
+  concat(FTTR.SOURCE_SYSTEM_KEY,'||',FTTR.TRANSPORTATION_SDUK) as TRANSPORTATION_SDUK,
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
   0 is_deleted
  FROM {fact_order_dim_inc}  FO  
   INNER JOIN delta_fetch_tv FTV on (FO.UPS_ORDER_NUMBER = FTV.UPS_ORDER_NUMBER)
   JOIN {fact_transportation} FTTR  ON       
+<<<<<<< HEAD
          (CASE WHEN FTTR.TRANS_ONLY_FLAG <> 'TRANS ONLY'  THEN   NVL(FTTR.UPS_WMS_SOURCE_SYSTEM_KEY,FO.SOURCE_SYSTEM_KEY)  ELSE FTTR.SOURCE_SYSTEM_KEY END = FO.SOURCE_SYSTEM_KEY  --10/25/2021     
       AND CASE WHEN FTTR.TRANS_ONLY_FLAG <> 'TRANS ONLY'  THEN FTTR.UPS_WMS_ORDER_NUMBER ELSE FTTR.UPS_ORDER_NUMBER END = FO.UPS_ORDER_NUMBER)   --10/25/2021
+=======
+         (CASE WHEN FTTR.TRANS_ONLY_FLAG <> 'TRANS_ONLY'  THEN   NVL(FTTR.UPS_WMS_SOURCE_SYSTEM_KEY,FO.SOURCE_SYSTEM_KEY)  ELSE FTTR.SOURCE_SYSTEM_KEY END = FO.SOURCE_SYSTEM_KEY  --10/25/2021     
+      AND CASE WHEN FTTR.TRANS_ONLY_FLAG <> 'TRANS_ONLY'  THEN FTTR.UPS_WMS_ORDER_NUMBER ELSE FTTR.UPS_ORDER_NUMBER END = FO.UPS_ORDER_NUMBER)   --10/25/2021
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
   JOIN {fact_transportation_references} TREF ON FTTR.UPS_ORDER_NUMBER = TREF.UPS_ORDER_NUMBER AND FTTR.SOURCE_SYSTEM_KEY = TREF.SOURCE_SYSTEM_KEY --10/25/2021
 """.format(**source_tables))
   logger.debug("query : " + query)
@@ -129,7 +154,11 @@ def main():
             logger.info('Reading source data...')
             src_df = spark.sql(source_query)
             
+<<<<<<< HEAD
             hash_key_columns = ['UPSOrderNumber','REFERENCE_SDUK']
+=======
+            hash_key_columns = ['SourceSystemKey','UPSOrderNumber','ORDER_SDUK','REFERENCE_SDUK','TRANSPORTATION_SDUK']
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
             logger.debug(f"hash key columns: {hash_key_columns}")
         
             logger.debug("Adding hash_key")
@@ -150,7 +179,11 @@ def main():
             logger.debug("Adding audit columns")
             src_df = add_audit_columns(src_df, pid,datetime.now(),datetime.now())
         
+<<<<<<< HEAD
             primary_keys = ['hash_key']
+=======
+            primary_keys = ['SourceSystemKey','UPSOrderNumber','ORDER_SDUK','REFERENCE_SDUK','TRANSPORTATION_SDUK']
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
             logger.debug('primary_keys: {primary_keys}'.format(primary_keys=primary_keys))
         
             logger.info(f'Merging to delta path: {digital_summary_transportation_references_path}')

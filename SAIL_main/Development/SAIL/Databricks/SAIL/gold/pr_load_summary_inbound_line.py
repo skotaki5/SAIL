@@ -2,7 +2,11 @@
 # MAGIC %md
 # MAGIC 
 # MAGIC <b>Author--GD000012733@ups.com</b>
+<<<<<<< HEAD
 # MAGIC <br>version 1.0 - inital version by Vishal</b>
+=======
+# MAGIC <b>Name:Vishal</b>
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC </br>version 1.1 - added changes for story UPSGLD-15243 by arpan
 
 # COMMAND ----------
@@ -134,11 +138,17 @@ def run_q3():
 		,FIL.SOURCE_INBOUND_LINE_REFERENCE_10
 		,FIL.SOURCE_INBOUND_LINE_REFERENCE_11
 		,FIL.PO_HEADER_NUMBER
+<<<<<<< HEAD
         ,FIL.CASES
         ,FIL.SOURCE_INBOUND_LINE_REFERENCE_1 ----> Code change sprint 54
         ,FIL.SOURCE_INBOUND_LINE_REFERENCE_3 ----> Code change sprint 54
         ,FIL.SOURCE_INBOUND_LINE_REFERENCE_4 ----> Code change sprint 54
         ,FIL.SOURCE_INBOUND_LINE_REFERENCE_5 ----> Code change sprint 54
+=======
+		--,FIL.IL_LAST_PUTAWAY_DATE
+		,NULL AS IL_LAST_PUTAWAY_DATE
+        ,FIL.CASES
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
         FROM {var_inbound_tv} INB  
         LEFT JOIN {fact_inbound_line} FIL ON FIL.SOURCE_INBOUND_HEADER_NUMBER = INB.UPSASNNumber AND FIL.SOURCE_SYSTEM_KEY = INB.ASN_SOURCE_SYSTEM_KEY
 WHERE INB.SOURCE_SYSTEM_KEY <> 1002
@@ -154,11 +164,17 @@ SELECT INB.*
 		,FIL.SOURCE_INBOUND_LINE_REFERENCE_10
 		,FIL.SOURCE_INBOUND_LINE_REFERENCE_11
 		,FIL.PO_HEADER_NUMBER
+<<<<<<< HEAD
         ,FIL.CASES
         ,FIL.SOURCE_INBOUND_LINE_REFERENCE_1 ----> Code change sprint 54
         ,FIL.SOURCE_INBOUND_LINE_REFERENCE_3 ----> Code change sprint 54
         ,FIL.SOURCE_INBOUND_LINE_REFERENCE_4 ----> Code change sprint 54
         ,FIL.SOURCE_INBOUND_LINE_REFERENCE_5 ----> Code change sprint 54
+=======
+		--,FIL.IL_LAST_PUTAWAY_DATE
+		,NULL AS IL_LAST_PUTAWAY_DATE
+        ,FIL.CASES
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 FROM {var_inbound_tv} INB  
 LEFT JOIN {fact_inbound_line} FIL ON FIL.ASN_HEADER_NUMBER = INB.UPSASNNumber AND FIL.SOURCE_SYSTEM_KEY = INB.ASN_SOURCE_SYSTEM_KEY  
 WHERE INB.SOURCE_SYSTEM_KEY = 1002
@@ -185,18 +201,28 @@ SELECT
 		,FIL.SOURCE_INBOUND_LINE_REFERENCE_10
 		,FIL.SOURCE_INBOUND_LINE_REFERENCE_11
 		,FIL.PO_HEADER_NUMBER
+<<<<<<< HEAD
 		,FIL.CASES 
         ,FIL.SOURCE_INBOUND_LINE_REFERENCE_1 ----> Code change sprint 54
         ,FIL.SOURCE_INBOUND_LINE_REFERENCE_3 ----> Code change sprint 54
         ,FIL.SOURCE_INBOUND_LINE_REFERENCE_4 ----> Code change sprint 54
         ,FIL.SOURCE_INBOUND_LINE_REFERENCE_5 ----> Code change sprint 54
+=======
+        --,FIL.IL_LAST_PUTAWAY_DATE
+		,NULL AS IL_LAST_PUTAWAY_DATE
+		,FIL.CASES    
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
     FROM {fact_inbound_line}  FIL 
     LEFT JOIN {dim_customer} C  ON C.CUSTOMERKEY = FIL.CLIENT_KEY
     LEFT JOIN {dim_warehouse} WSE  ON WSE.WAREHOUSE_KEY = FIL.WAREHOUSE_KEY
 WHERE FIL.SOURCE_SYSTEM_KEY = 1002 
       AND FIL.INBND_HDR_CREATION_DATE BETWEEN date_sub(current_timestamp, {days_back}) AND current_timestamp
       AND ASN_HEADER_NUMBER IS NULL --UPSGLD-15244
+<<<<<<< HEAD
 )""".format(days_back=days_back,var_inbound_line_tv=var_inbound_line_tv,var_inbound_tv=var_inbound_tv,**source_tables))
+=======
+      )""".format(days_back=days_back,var_inbound_line_tv=var_inbound_line_tv,var_inbound_tv=var_inbound_tv,**source_tables))
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
   logger.debug("query : " + q3)
   return(q3)
   
@@ -233,11 +259,16 @@ def get_query():
  TD.SOURCE_INBOUND_LINE_REFERENCE_2 as InboundLine_Reference2,  
  TD.SOURCE_INBOUND_LINE_REFERENCE_10 as InboundLine_Reference10,  
  TD.SOURCE_INBOUND_LINE_REFERENCE_11 as InboundLine_Reference11, 
+<<<<<<< HEAD
  TD.cases,
  TD.SOURCE_INBOUND_LINE_REFERENCE_1 as InboundLine_Reference1,  ----> Code change sprint 54
  TD.SOURCE_INBOUND_LINE_REFERENCE_3 as InboundLine_Reference3, ----> Code change sprint 54 
  TD.SOURCE_INBOUND_LINE_REFERENCE_4 as InboundLine_Reference4, ----> Code change sprint 54
  TD.SOURCE_INBOUND_LINE_REFERENCE_5 as InboundLine_Reference5  ----> Code change sprint 54
+=======
+ cast(TD.IL_LAST_PUTAWAY_DATE as timestamp) as PutAwayDate ,
+ TD.cases
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 FROM {var_inbound_line_tv} TD  
 LEFT JOIN {dim_item} ITEM ON TD.ITEM_KEY=ITEM.ITEM_KEY AND TD.ASN_SOURCE_SYSTEM_KEY=ITEM.SOURCE_SYSTEM_KEY  
 GROUP BY    
@@ -266,11 +297,17 @@ GROUP BY
 ,TD.SOURCE_INBOUND_LINE_REFERENCE_2
 ,TD.SOURCE_INBOUND_LINE_REFERENCE_10
 ,TD.SOURCE_INBOUND_LINE_REFERENCE_11
+<<<<<<< HEAD
 ,TD.cases
 ,TD.SOURCE_INBOUND_LINE_REFERENCE_1  ----> Code change sprint 54
 ,TD.SOURCE_INBOUND_LINE_REFERENCE_3 ----> Code change sprint 54 
 ,TD.SOURCE_INBOUND_LINE_REFERENCE_4 ----> Code change sprint 54
 ,TD.SOURCE_INBOUND_LINE_REFERENCE_5 ----> Code change sprint 54
+=======
+,TD.IL_LAST_PUTAWAY_DATE
+,TD.cases
+   
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 """.format(var_inbound_line_tv=var_inbound_line_tv,**source_tables))
   logger.debug("query : " + query)
   return(query)
@@ -315,6 +352,10 @@ def main():
         
         hwm=get_hwm('gold',digital_summary_inbound_line_et)
         logger.info(f'hwm {digital_summary_inbound_line_et}: {hwm}')
+<<<<<<< HEAD
+=======
+        
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
         spark.sql(get_delta_query(hwm))
         logger.info("get_delta_query finished")
         
@@ -325,7 +366,11 @@ def main():
         logger.info('Reading q3 query...')
         spark.sql(run_q3())
         logger.info('Reading source query...')
+<<<<<<< HEAD
         spark.sql(get_query())
+=======
+        df = spark.sql(get_query())
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
         
         spark.sql("cache table digital_summary_inbound_line_stg")
         df = spark.sql("select * from digital_summary_inbound_line_stg")
@@ -333,11 +378,19 @@ def main():
         
         spark.sql(soft_delete_query())
         logger.info(f"soft delete operation on {digital_summary_inbound_line_et} finished")
+<<<<<<< HEAD
         ###################### generating hash key  #############################
         hash_key_columns =["AccountId","DP_SERVICELINE_KEY","DP_ORGENTITY_KEY","FacilityId","FacilityCode","UPSOrderNumber","UPSASNNumber","ClientASNNumber","ClientPONumber", 
                             "ReceiptNumber","ReceiptLineNumber","ShippedQuantity","ReceivedQuantity","CreationDateTime","SKU","SKUDescription","SKUDimensions","SKUWeight","SKUDimensions_UOM",
                             "SKUWeight_UOM","SourceSystemKey","InboundLine_Reference2","InboundLine_Reference10","InboundLine_Reference11","cases"
         ,"InboundLine_Reference1","InboundLine_Reference3","InboundLine_Reference4","InboundLine_Reference5"]  #----> Code change sprint 54
+=======
+        
+        ###################### generating hash key  #############################
+        hash_key_columns =["AccountId","DP_SERVICELINE_KEY","DP_ORGENTITY_KEY","FacilityId","FacilityCode","UPSOrderNumber","UPSASNNumber","ClientASNNumber","ClientPONumber", 
+                            "ReceiptNumber","ReceiptLineNumber","ShippedQuantity","ReceivedQuantity","CreationDateTime","SKU","SKUDescription","SKUDimensions","SKUWeight","SKUDimensions_UOM",
+                            "SKUWeight_UOM","SourceSystemKey","InboundLine_Reference2","InboundLine_Reference10","InboundLine_Reference11","PutAwayDate","cases"]
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
         logger.debug(f"columns: {hash_key_columns}")
         logger.debug("Adding hash_key")
         src_df = src_df.withColumn("hash_key", sha1_concat(hash_key_columns))
@@ -357,7 +410,10 @@ def main():
         primary_keys = ['hash_key']
         logger.debug('primary_keys: {primary_keys}'.format(primary_keys=primary_keys))
         logger.info(f'Merging to delta path: {digital_summary_inbound_line_path}')
+<<<<<<< HEAD
         #spark.sql("SET spark.databricks.delta.schema.autoMerge.enabled = true") #-----> Code change sprint 54
+=======
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
         mergeToDelta(src_df,digital_summary_inbound_line_path,primary_keys)
         logger.info(f'merging to delta path finished: {digital_summary_inbound_line_path}')
         logger.info('setting hwm')

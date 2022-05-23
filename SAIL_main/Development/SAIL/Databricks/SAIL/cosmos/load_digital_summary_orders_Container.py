@@ -2,7 +2,11 @@
 """
 Author           : Prashant Gupta
 Description      : this notebook is to load digital_summary_orders cosmos container.
+<<<<<<< HEAD
 verision 1.1     : updated ma_shipmentEstimateddeliveryDateTime logic as per the ticket UPSGLD-15116  
+=======
+verision 1.1     : updated trans_missed_delivery_movement AS logic as per the ticket UPSGLD-15476 
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 """
 
 # COMMAND ----------
@@ -67,13 +71,21 @@ CREATE
 	WITH change AS (
 			SELECT UPSOrderNumber
 			FROM {digital_summary_orders}
+<<<<<<< HEAD
 			WHERE dl_update_timestamp >='{hwm}'
+=======
+			WHERE dl_update_timestamp >= '{hwm}'
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
             
 			UNION
 			
 			SELECT UPSORDERNUMBER
 			FROM {digital_summary_transportation_callcheck}
+<<<<<<< HEAD
 			WHERE dl_update_timestamp >='{hwm}'
+=======
+			WHERE dl_update_timestamp >= '{hwm}'
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 			
 			UNION
 			
@@ -83,19 +95,31 @@ CREATE
 					ELSE UpsOrderNumber
 					END UPSOrderNumber
 			FROM {digital_summary_transportation}
+<<<<<<< HEAD
 			WHERE dl_update_timestamp >='{hwm}'
+=======
+			WHERE dl_update_timestamp >= '{hwm}'
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
             
 			UNION
 			
 			SELECT UPSOrderNumber
 			FROM {digital_summary_transportation_references}
+<<<<<<< HEAD
 			WHERE dl_update_timestamp >='{hwm}'
+=======
+			WHERE dl_update_timestamp >= '{hwm}'
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
             
             UNION
 			
 			SELECT UPSOrderNumber
 			FROM {digital_summary_milestone}
+<<<<<<< HEAD
 			WHERE dl_update_timestamp >='{hwm}'
+=======
+			WHERE dl_update_timestamp >= '{hwm}'
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
             
 			UNION
 			
@@ -108,27 +132,43 @@ CREATE
 			
 			SELECT UPSOrderNumber
 			FROM {digital_summary_transportation_rates_charges}
+<<<<<<< HEAD
 			WHERE dl_update_timestamp >='{hwm}'
+=======
+			WHERE dl_update_timestamp >= '{hwm}'
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 			
 			UNION
 			
 			SELECT UPSOrderNumber AS ups_order_number
 			FROM {digital_summary_order_lines}
+<<<<<<< HEAD
 			WHERE dl_update_timestamp >='{hwm}'
+=======
+			WHERE dl_update_timestamp >= '{hwm}'
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
             
 			
 			UNION
 			
 			SELECT UPSOrderNumber AS ups_order_number
 			FROM {digital_summary_order_tracking}
+<<<<<<< HEAD
 			WHERE dl_update_timestamp >='{hwm}'
+=======
+			WHERE dl_update_timestamp >= '{hwm}'
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
             
 			
 			UNION
 			
 			SELECT UPSOrderNumber AS ups_order_number
 			FROM {digital_summary_exceptions}
+<<<<<<< HEAD
 			WHERE dl_update_timestamp >='{hwm}'
+=======
+			WHERE dl_update_timestamp >= '{hwm}'
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 			)
  
 SELECT o.*,row_number() over(partition by 
@@ -267,7 +307,26 @@ INNER JOIN (
 	FROM change
 	) c ON o.UPSOrderNumber = c.UPSOrderNumber
     where o.DateTimeReceived >= case when date('{hwm}') = '1900-01-01' then current_date else  date('{hwm}') end - {days_back}
+<<<<<<< HEAD
         """.format(**source_tables,hwm=hwm,days_back=days_back)
+=======
+    --and AccountId in {account_id}
+        """.format(**source_tables,hwm=hwm,days_back=days_back,account_id=account_id)
+    logger.debug("query : " + query)
+    return(query)
+
+# COMMAND ----------
+
+def get_delta_query2(hwm):
+    logger.debug("hwm: " + str(hwm))
+    query ="""
+CREATE
+	OR replace TEMP VIEW digital_summary_milestone_activity_vw AS
+    select * from  {digital_summary_milestone_activity} MA
+			WHERE MA.is_deleted = 0 and MA.ActivityDate between case when date('{hwm}') = '1900-01-01' then current_date else date('{hwm}') end - {days_back}
+            and case when date('{hwm}') = '1900-01-01' then current_date else date('{hwm}') end + {days_back}
+    """.format(**source_tables,hwm=hwm,days_back=days_back,account_id=account_id)
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
     logger.debug("query : " + query)
     return(query)
 
@@ -282,7 +341,11 @@ def get_pre_cosmos_query(hwm):
 				,ROW_NUMBER() OVER (
 					PARTITION BY UPSOrderNumber ORDER BY ActivityDate DESC
 					) ROWNUM
+<<<<<<< HEAD
 			FROM {digital_summary_milestone_activity} MA
+=======
+			FROM {digital_summary_milestone_activity_vw} MA
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 			WHERE MA.is_deleted = 0 and MA.ACTIVITY_NOTES IS NOT NULL
 				AND MA.ActivityCode NOT IN (
 					'AB'
@@ -296,8 +359,13 @@ def get_pre_cosmos_query(hwm):
 				,MA.ACTIVITY_NOTES
 				,MA.ActivityDate
 				,ROW_NUMBER() OVER (PARTITION BY UPSOrderNumber ORDER BY ActivityDate DESC) RN
+<<<<<<< HEAD
 			FROM {digital_summary_milestone_activity} MA
 			ANTI JOIN (SELECT distinct UPSOrderNumber FROM {digital_summary_milestone_activity} 
+=======
+			FROM {digital_summary_milestone_activity_vw} MA
+			ANTI JOIN (SELECT distinct UPSOrderNumber FROM {digital_summary_milestone_activity_vw} 
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 			WHERE is_deleted = 0 and ActivityCode IN ('D1','DELIVER')) D ON MA.UPSOrderNumber = D.UPSOrderNumber
 			WHERE MA.is_deleted = 0 and MA.ACTIVITY_NOTES IS NOT NULL
 				AND MA.ActivityCode NOT IN ('AB','E')) WHERE RN = 1
@@ -307,13 +375,30 @@ def get_pre_cosmos_query(hwm):
 					,SourceSystemKey
 					,collect_set(named_struct('referenceType', nvl(TR.ReferenceType, ''), 'referenceValue', nvl(TR.ReferenceValue, ''))) AS shipunit_reference
 			FROM {digital_summary_transportation_references} TR
+<<<<<<< HEAD
 			WHERE ReferenceLevel = 'shipunit_reference'
+=======
+			WHERE ReferenceLevel = 'shipunit_reference' and TR.is_deleted = 0
+			GROUP BY UPSOrderNumber
+					,SourceSystemKey
+			)
+        ,shipitem_references AS (
+			SELECT UPSOrderNumber
+					,SourceSystemKey
+					,collect_set(named_struct('referenceType', nvl(TR.ReferenceType, ''), 'referenceValue', nvl(TR.ReferenceValue, ''))) AS shipitem_reference
+			FROM {digital_summary_transportation_references} TR
+			WHERE ReferenceLevel = 'shipitem_reference' and TR.is_deleted = 0
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 			GROUP BY UPSOrderNumber
 					,SourceSystemKey
 			)
 		,PickUpDate AS (
 			SELECT ma.UPSOrderNumber,MAX(ma.ActivityDate)  as PickUpDate
+<<<<<<< HEAD
 			FROM {digital_summary_milestone_activity} MA
+=======
+			FROM {digital_summary_milestone_activity_vw} MA
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 			WHERE MA.is_deleted = 0 and  MA.ActivityCode in('AM','AF','CP')   and MA.SourceSystemKey = 1011
 			group by ma.UPSOrderNumber
 			)
@@ -323,7 +408,11 @@ def get_pre_cosmos_query(hwm):
 				,SUM(CAST(P.CHARGE AS DECIMAL(10, 2))) AS totalCharge
 				,CurrencyCode AS totalcurency
 			FROM {digital_summary_transportation_rates_charges} p
+<<<<<<< HEAD
 			WHERE P.ChargeLevel = 'CUSTOMER_INVOICE'
+=======
+			WHERE P.ChargeLevel = 'CUSTOMER_INVOICE' and p.is_deleted = 0
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 			GROUP BY UpsOrderNumber
 				,SourceSystemKey
 				,CurrencyCode
@@ -334,7 +423,11 @@ def get_pre_cosmos_query(hwm):
 				,SUM(CAST(P.CHARGE AS DECIMAL(10, 2))) AS totalCharge
 				,CurrencyCode AS totalcurency
 			FROM {digital_summary_transportation_rates_charges} p
+<<<<<<< HEAD
 			WHERE P.ChargeLevel = 'CUSTOMER_RATES'
+=======
+			WHERE P.ChargeLevel = 'CUSTOMER_RATES' and p.is_deleted = 0
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 			GROUP BY UpsOrderNumber
 				,SourceSystemKey
 				,CurrencyCode
@@ -348,12 +441,29 @@ def get_pre_cosmos_query(hwm):
                 ,SUM(OL.SKUQuantity) SKUQuantity_sum
 			FROM {digital_summary_order_lines} OL
 			JOIN {digital_summary_orders_vw} O ON O.UPSOrderNumber = OL.UPSOrderNumber
+<<<<<<< HEAD
 				AND O.SourceSystemKey = OL.SourceSystemKey
+=======
+				AND O.SourceSystemKey = OL.SourceSystemKey and ol.is_deleted = 0
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 			--WHERE nvl(OL.ShipmentLineCanceledFlag, 'Y') = 'Y'
             group by OL.UPSOrderNumber
 				,OL.SourceSystemKey
 			)
+<<<<<<< HEAD
             ,inbound_line_sil AS (  -->sprint 54 start
+=======
+        ,inbound_line2 as (
+        SELECT DISTINCT
+O.UPSOrderNumber,
+o.SourceSystemKey,
+IL.UPSOrderNumber AS TransportOrderNumber
+FROM {digital_summary_orders_vw} o
+JOIN {digital_summary_inbound_line} IL ON O.OrderNumber = IL.ClientASNNumber
+WHERE IL.SourceSystemKey='1011' and il.is_deleted = 0
+        )
+        ,inbound_line_sil AS (
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 			select sil.UPSOrderNumber
 				,sil.SourceSystemKey
 				,collect_set(named_struct('UPSASNNumber' , nvl(sil.UPSASNNumber, '') , 'inbound_line_count' , nvl(sil.inbound_line_count, ''),'inbound_ShippedQuantity_sum' , nvl(sil.inbound_ShippedQuantity_sum, ''),'inbound_cases_sum' , nvl(sil.inbound_cases_sum, '') )) AS inbound_shipment_listing
@@ -376,7 +486,25 @@ def get_pre_cosmos_query(hwm):
 			) sil
 			group by sil.UPSOrderNumber
 				,sil.SourceSystemKey
+<<<<<<< HEAD
 			)   ----->sprint 54 end
+=======
+			) 
+        ,inbound_line AS (
+			SELECT  
+                OL.UPSOrderNumber
+				,OL.SourceSystemKey
+				,COUNT(ol.UPSOrderNumber) AS inbound_line_count
+                ,SUM(OL.ShippedQuantity) inbound_ShippedQuantity_sum
+                ,SUM(nvl(ol.CASES,0)) inbound_cases_sum  -- replace null with ol.CASES
+			FROM {digital_summary_inbound_line} OL
+			JOIN {digital_summary_orders_vw} O ON O.UPSOrderNumber = OL.UPSOrderNumber
+				AND O.SourceSystemKey = OL.SourceSystemKey
+			where O.IS_INBOUND = 1 and ol.is_deleted = 0
+            group by OL.UPSOrderNumber
+				,OL.SourceSystemKey
+			)
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 		,tracking AS (
 			SELECT SOT.UPSOrderNumber
 				,COUNT(SOT.TRACKING_NUMBER) CarrierShipmentCount
@@ -387,7 +515,11 @@ def get_pre_cosmos_query(hwm):
 			WHERE nvl(SOT.TRACKING_NUMBER, '') NOT IN (
 					''
 					,' '
+<<<<<<< HEAD
 					)
+=======
+					) and sot.is_deleted = 0
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 			GROUP BY sot.UPSOrderNumber
 			)
 		,max_activity AS (
@@ -407,6 +539,7 @@ def get_pre_cosmos_query(hwm):
 				,max(case when MA.CurrentMilestoneFlag = 'Y' then ma.MilestoneOrder else null end) as MilestoneOrder_CurrMile
 				,max(case when ActivityCode = 'CC' then date_format(ma.ActivityDate , 'yyyy-MM-dd HH:mm:ss.SSS') else null end) as claimClosureDateTime
 				,max(case when ActivityCode in ('D','D1','D9') then ma.ActivityDate else null end) as actualDeliveryDateTime_Movement
+<<<<<<< HEAD
                 ,max(case when ma.ActivityCode='COSD' then ma.ACTIVITY_NOTES else null end ) as claimStatus
                 ,max(case when upper(ma.ActivityCode) = 'DELIVER' and ma.ActivityDate is not null then 1 else 0 end ) as ActivityCodeDelivery_status
                 ,max(case when ma.ActivityCode IN('D','D1','D9','DELIVER','155') then ma.ActivityDate else null end ) as m1_ActualDeliveryDateTime
@@ -415,6 +548,22 @@ def get_pre_cosmos_query(hwm):
 				,max(case when ma.ActivityCode IN('D','D1','D9') then ma.PROOF_OF_DELIVERY_DATE_TIME else null end ) as proof_of_delivery_date_time -- change log
 			FROM {digital_summary_orders_vw} O
 			LEFT JOIN {digital_summary_milestone_activity} MA ON O.UPSOrderNumber = MA.UPSOrderNumber
+=======
+                ,max(case when ActivityCode in ('D','D1','D9') then 1 else 0 end) as activity_Movement_flag
+                ,max(case when ma.ActivityCode='COSD' then ma.ACTIVITY_NOTES else null end ) as claimStatus
+                ,max(case when ma.ActivityCode='COSD' then ma.ACTIVITY_STATUS else null end ) as claimStatus_movement
+                ,max(case when upper(ma.ActivityCode) = 'DELIVER' and ma.ActivityDate is not null then 1 else 0 end ) as ActivityCodeDelivery_status
+                ,max(case when ma.ActivityCode IN ('D','D1','D9','DELIVER','155') then ma.ActivityDate else null end ) as m1_ActualDeliveryDateTime
+                ,max(case when ma.ActivityCode IN ('AG','AB','AA','071') then ma.ActivityDate else null end ) as ma_shipmentEstimatedDateTime
+                ,max(case when ma.ActivityCode IN ('D','D1','D9') then o.actualDeliveryDateTime else null end ) as ma_ShipmentDeliveryDate
+                ,max(case when ma.ActivityCode IN ('RECS' , 'REC30' , 'REC90') then ma.ActivityDate else null end ) as ma_shipmentReceivedDate
+                ,max(case when MA.MilestoneName <> 'PUTAWAY' AND O.IS_INBOUND = 1 AND O.IS_ASN = 1 AND nvl(O.OrderCancelledFlag,'N') = 'N' AND MA.CurrentMilestoneFlag = 'Y' then ma.ActivityDate else null end ) as ma_ActivityDate_1
+                ,max(case when  MA.ActivityCode in ('RECS' , 'REC30' , 'REC90') and MA.MilestoneName <> 'PUTAWAY' AND O.IS_INBOUND = 1 AND O.IS_ASN = 1 AND nvl(O.OrderCancelledFlag,'N') = 'N' AND MA.CurrentMilestoneFlag = 'Y' then ma.ActivityDate else null end ) as ma_ActivityDate_2
+                ,max(case when ma.ActivityCode IN('D','D1','D9') then ma.PROOF_OF_DELIVERY_NAME else null end ) as proof_of_delivery_name -- change log
+				,max(case when ma.ActivityCode IN('D','D1','D9') then ma.PROOF_OF_DELIVERY_DATE_TIME else null end ) as proof_of_delivery_date_time -- change log
+			FROM {digital_summary_orders_vw} O
+			LEFT JOIN {digital_summary_milestone_activity_vw} MA ON O.UPSOrderNumber = MA.UPSOrderNumber
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 				AND O.SourceSystemKey = MA.SourceSystemKey and MA.is_deleted = 0
 			GROUP BY O.UPSOrderNumber
 				,O.SourceSystemKey
@@ -430,10 +579,17 @@ def get_pre_cosmos_query(hwm):
 					,EX.SourceSystemKey ORDER BY EX.OTZ_ExceptionCreatedDate DESC
 					) rn
 			FROM {digital_summary_orders_vw} o
+<<<<<<< HEAD
 			INNER JOIN {digital_summary_exceptions} EX ON O.UPSTransportShipmentNumber = EX.UPSOrderNumber
 			LEFT JOIN {map_milestone_activity} MMA ON MMA.ActivityCode = EX.ExceptionEvent
 			INNER JOIN max_activity MA ON o.UPSOrderNumber = MA.UPSOrderNumber
 				AND o.SourceSystemKey = MA.SourceSystemKey and MA.activity_flag = 0
+=======
+			INNER JOIN {digital_summary_exceptions} EX ON O.UPSTransportShipmentNumber = EX.UPSOrderNumber and ex.is_deleted = 0
+			LEFT JOIN {map_milestone_activity} MMA ON MMA.ActivityCode = EX.ExceptionEvent
+			INNER JOIN max_activity MA ON o.UPSOrderNumber = MA.UPSOrderNumber
+				AND o.SourceSystemKey = MA.SourceSystemKey and MA.activity_flag = 0 
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 			
 			UNION
 			
@@ -450,8 +606,13 @@ def get_pre_cosmos_query(hwm):
 			INNER JOIN {digital_summary_exceptions} EX ON O.UPSOrderNumber = EX.UPSOrderNumber
 			LEFT JOIN {map_milestone_activity} MMA ON MMA.ActivityCode = EX.ExceptionEvent
 			INNER JOIN max_activity MA ON o.UPSOrderNumber = MA.UPSOrderNumber 
+<<<<<<< HEAD
 				AND o.SourceSystemKey = MA.SourceSystemKey and MA.activity_flag = 0
 			WHERE EX.SourceSystemKey = 1019
+=======
+				AND o.SourceSystemKey = MA.SourceSystemKey and MA.activity_flag = 0 
+			WHERE EX.SourceSystemKey = 1019 and ex.is_deleted = 0
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 			)
         ,max_exception2 AS (
 			SELECT EX.OTZ_ExceptionCreatedDate AS ExceptionCreatedDate
@@ -464,7 +625,11 @@ def get_pre_cosmos_query(hwm):
 					,EX.SourceSystemKey ORDER BY EX.OTZ_ExceptionCreatedDate DESC
 					) rn
 			FROM {digital_summary_orders_vw} o
+<<<<<<< HEAD
 			INNER JOIN {digital_summary_exceptions} EX ON O.UPSTransportShipmentNumber = EX.UPSOrderNumber
+=======
+			INNER JOIN {digital_summary_exceptions} EX ON O.UPSTransportShipmentNumber = EX.UPSOrderNumber and ex.is_deleted = 0
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 			LEFT JOIN {map_milestone_activity} MMA ON MMA.ActivityCode = EX.ExceptionEvent
             
 			UNION
@@ -479,7 +644,11 @@ def get_pre_cosmos_query(hwm):
 					,EX.SourceSystemKey ORDER BY EX.UTC_ExceptionCreatedDate DESC
 					) rn
 			FROM {digital_summary_orders_vw} O
+<<<<<<< HEAD
 			INNER JOIN {digital_summary_exceptions} EX ON O.UPSOrderNumber = EX.UPSOrderNumber
+=======
+			INNER JOIN {digital_summary_exceptions} EX ON O.UPSOrderNumber = EX.UPSOrderNumber and ex.is_deleted = 0
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 			LEFT JOIN {map_milestone_activity} MMA ON MMA.ActivityCode = EX.ExceptionEvent
 			WHERE EX.SourceSystemKey = 1019
 			)
@@ -510,6 +679,10 @@ def get_pre_cosmos_query(hwm):
 				,SourceSystemKey
 				,collect_set(named_struct('exceptionType' , nvl(ExceptionType, '') ,'ExceptionReasonType' , nvl(ExceptionReasonType, '') , 'exceptionReason' , nvl(exceptionReason, ''), 'ExceptionPrimaryIndicator' , nvl(ExceptionPrimaryIndicator, ''), 'ExceptionCategory' , nvl(ExceptionCategory, ''), 'OTZ_ExceptionCreatedDate' , nvl(OTZ_ExceptionCreatedDate, ''),'UTC_ExceptionCreatedDate' , nvl(UTC_ExceptionCreatedDate, ''))) AS exception_list
 			FROM {digital_summary_exceptions}
+<<<<<<< HEAD
+=======
+            where is_deleted = 0
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 			GROUP BY UPSOrderNumber
 				,SourceSystemKey
 			)
@@ -518,9 +691,18 @@ def get_pre_cosmos_query(hwm):
 				,O.UPSOrderNumber
 				,O.SourceSystemKey
 			FROM {digital_summary_orders_vw} O
+<<<<<<< HEAD
 			INNER JOIN {digital_summary_milestone_activity} MA ON O.UPSOrderNumber = MA.UPSOrderNumber
 				AND O.SourceSystemKey = MA.SourceSystemKey
 				AND MA.CurrentMilestoneFlag = 'Y' and MA.is_deleted = 0 
+=======
+			INNER JOIN {digital_summary_milestone_activity_vw} MA ON O.UPSOrderNumber = MA.UPSOrderNumber
+				AND O.SourceSystemKey = MA.SourceSystemKey
+				AND case when o.is_inbound=0 then MA.CurrentMilestoneFlag else 'Y' end = 'Y' 
+                and MA.is_deleted = 0 
+                and case when o.is_inbound=0 then 'NA' else MA.MilestoneName end  <> 'PUTAWAY'
+                and case when o.is_inbound=0 then 1 else o.is_asn end  =1
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 			GROUP BY O.UPSOrderNumber
 				,O.SourceSystemKey
 			)
@@ -537,10 +719,17 @@ def get_pre_cosmos_query(hwm):
 			    CASE WHEN MA.MilestoneCompletionFlag = 'Y' THEN NVL(MA.MilestoneDate, MA.ActivityDate) END MilesStoneCompletionDateTime,
 			    NVL(MA1.activityCount, 0) AS activityCount, MTM.TransactionTypeName AS templateType, M.AccountId,M.UPSOrderNumber,M.DP_SERVICELINE_KEY
 			  FROM {digital_summary_milestone} M
+<<<<<<< HEAD
 			  LEFT JOIN {digital_summary_milestone_activity} MA 
 					ON M.UPSOrderNumber = MA.UPSOrderNumber	AND M.MilestoneOrder = MA.MilestoneOrder and MA.is_deleted = 0
 						AND M.SourceSystemKey = CASE WHEN MA.SourceSystemKey = '1011' THEN M.SourceSystemKey ELSE MA.SourceSystemKey END
 			  LEFT JOIN (SELECT COUNT(1) AS activityCount,MA.UPSOrderNumber,MA.SourceSystemKey,MA.MilestoneName FROM {digital_summary_milestone_activity} MA where MA.is_deleted = 0
+=======
+			  LEFT JOIN {digital_summary_milestone_activity_vw} MA 
+					ON M.UPSOrderNumber = MA.UPSOrderNumber	AND M.MilestoneOrder = MA.MilestoneOrder and MA.is_deleted = 0
+						AND M.SourceSystemKey = CASE WHEN MA.SourceSystemKey = '1011' THEN M.SourceSystemKey ELSE MA.SourceSystemKey END
+			  LEFT JOIN (SELECT COUNT(1) AS activityCount,MA.UPSOrderNumber,MA.SourceSystemKey,MA.MilestoneName FROM {digital_summary_milestone_activity_vw} MA where MA.is_deleted = 0
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 			    GROUP BY MA.UPSOrderNumber,MA.SourceSystemKey,MA.MilestoneName) MA1 
 			    ON M.UPSOrderNumber = MA1.UPSOrderNumber AND M.SourceSystemKey = CASE WHEN MA1.SourceSystemKey = '1011' THEN M.SourceSystemKey ELSE MA.SourceSystemKey END AND M.MilestoneName = MA1.MilestoneName
 			   LEFT JOIN {map_transactiontype_milestone} MTM ON MA.MilestoneOrder=MTM.MilestoneOrder
@@ -548,6 +737,7 @@ def get_pre_cosmos_query(hwm):
 			  GROUP BY ShipmentMileStones,templateType,MilestoneOrder,AccountId,UPSOrderNumber,DP_SERVICELINE_KEY)
 			   GROUP BY AccountId, UPSOrderNumber, DP_SERVICELINE_KEY
 			)
+<<<<<<< HEAD
 ,max_activity_name AS 
         (
 			SELECT collect_set(named_struct('MMA_ActivityName' , nvl(MMA.ActivityName, '') , 'Type' , nvl(WA.Type, ''),'WIPActivityOrderId' , nvl(WA.WIPActivityOrderId, ''),'MilestoneName' , nvl(MMA.MilestoneName, '') )) AS Activity_name_LIST   ----->sprint 54
@@ -566,6 +756,34 @@ def get_pre_cosmos_query(hwm):
 				,tmpActivity.SourceSystemKey
 		)
         ,trans_missed_delivery AS (
+=======
+		,max_activity_name AS (
+			SELECT collect_set(named_struct('WIP_ActivityName' , nvl(WA.WIP_ActivityName, '') , 'Type' , nvl(WA.Type, ''),'WIPActivityOrderId' , nvl(WA.WIPActivityOrderId, ''),'MilestoneName' , nvl(WA.MilestoneName, '') )) AS Activity_name_LIST
+				,tmpActivity.UPSOrderNumber
+				,tmpActivity.SourceSystemKey
+			FROM all_act tmpActivity
+			INNER JOIN {digital_summary_milestone_activity_vw} MA ON MA.is_deleted = 0 and tmpActivity.UPSOrderNumber = MA.UPSOrderNumber
+				AND tmpActivity.SourceSystemKey = MA.SourceSystemKey
+				AND tmpActivity.ActivityDate = MA.ActivityDate
+				--AND MA.CurrentMilestoneFlag = 'Y'
+			INNER JOIN {wh_wip_mapping_activity} WA ON MA.ActivityName = WA.ActivityName
+				AND MA.SourceSystemKey = WA.SOURCE_SYSTEM_KEY  --and WA.Type ='Out'
+			GROUP BY tmpActivity.UPSOrderNumber
+				,tmpActivity.SourceSystemKey
+			)
+           ,trans_missed_delivery_movement AS (                       --UPSGLD-15476                     
+			select o.UPSOrderNumber,o.SourceSystemKey,
+            count(*) MissedDeliveredCount_movement 
+            from {digital_summary_orders_vw}  o
+            inner join {digital_summary_transportation} t
+            on o.UPSOrderNumber= t.UpsOrderNumber
+            and o.CurrentMilestone in ('TRANSPORTATION PLANNING','IN TRANSIT','CUSTOMS')
+            and nvl(o.OrderStatusName,'') <> 'Cancelled'
+            and nvl(o.OrderCancelledFlag,'N') <> 'Y'
+            group by o.UPSOrderNumber,o.SourceSystemKey
+			)
+            ,trans_missed_delivery AS (
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 			select o.UPSOrderNumber,o.SourceSystemKey,
             count(*) MissedDeliveredCount 
             from {digital_summary_orders_vw}  o
@@ -594,11 +812,18 @@ def get_pre_cosmos_query(hwm):
 ,o.UPSOrderNumber                                                                                   
 ,date_format(O.DateTimeReceived, 'yyyy-MM-dd HH:mm:ss.SSS') DateTimeReceived                        
 ,date_format(O.DateTimeReceived, 'yyyy-MM-dd') AS ShipmentCreationDate                              
+<<<<<<< HEAD
 ,date_format(O.DateTimeShipped, 'yyyy-MM-dd') AS ShipmentShippedDate   
 ,date_format(O.ActualDeliveryDateTime, 'yyyy-MM-dd') AS ActualDeliveryDateTime_date 
 
 ,date_format(O.DateTimeShipped , 'yyyy-MM-dd HH:mm:ss.SSS') DateTimeShipped                         
 ,date_format(O.ScheduledPickUpDateTime , 'yyyy-MM-dd HH:mm:ss.SSS') ScheduledPickUpDateTime                                                                          
+=======
+,date_format(O.DateTimeShipped, 'yyyy-MM-dd') AS ShipmentShippedDate  
+,date_format(O.ActualDeliveryDateTime, 'yyyy-MM-dd') AS ActualDeliveryDateTime_date 
+,date_format(O.DateTimeShipped , 'yyyy-MM-dd HH:mm:ss.SSS') DateTimeShipped                         
+,date_format(O.ScheduledPickUpDateTime , 'yyyy-MM-dd HH:mm:ss.SSS') ScheduledPickUpDateTime
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 ,O.UPSOrderNumber shipmentNumber                                                                    
 ,O.SourceSystemKey                                                                                  
 ,O.OriginCountry                                                                                    
@@ -646,9 +871,16 @@ def get_pre_cosmos_query(hwm):
 ,date_format(O.DateTimeReceived, 'yyyy-MM-dd HH:mm:ss.SSS') as shipmentCreateOnDateTime
 ,date_format(O.OriginalScheduledDeliveryDateTime , 'yyyy-MM-dd HH:mm:ss.SSS') originalScheduledDeliveryDateTime
 ,date_format(O.ActualDeliveryDateTime , 'yyyy-MM-dd HH:mm:ss.SSS') AS actualDeliveryDateTime
+<<<<<<< HEAD
 ,date_format(max_act.actualDeliveryDateTime_Movement , 'yyyy-MM-dd HH:mm:ss.SSS') AS actualDeliveryDateTime_Movement
 ,O.FacilityId warehouseId
 ,O.OrderWarehouse warehouseCodea
+=======
+,date_format(O.ActualDeliveryDateTime , 'yyyy-MM-dd') as ShipmentDeliveryDate_movement
+,date_format(max_act.actualDeliveryDateTime_Movement , 'yyyy-MM-dd HH:mm:ss.SSS') AS actualDeliveryDateTime_Movement
+,O.FacilityId warehouseId
+,O.OrderWarehouse warehouseCode
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 ,O.CurrentMilestone milestoneStatus
 ,date_format(O.EstimatedDeliveryDateTime , 'yyyy-MM-dd HH:mm:ss.SSS') AS estimatedDeliveryDateTime
 ,O.ORDER_REF_1_VALUE referenceNumber1
@@ -656,6 +888,7 @@ def get_pre_cosmos_query(hwm):
 ,O.ORDER_REF_3_VALUE referenceNumber3
 ,O.ORDER_REF_4_VALUE referenceNumber4
 ,O.ORDER_REF_5_VALUE referenceNumber5
+<<<<<<< HEAD
 ,O.ORDER_REF_6_VALUE referenceNumber6    --Spint 55 UPSGLD-15868
 ,O.ORDER_REF_7_VALUE referenceNumber7    --Spint 55 UPSGLD-15868
 ,O.ORDER_REF_8_VALUE referenceNumber8    --Spint 55 UPSGLD-15868
@@ -666,6 +899,8 @@ def get_pre_cosmos_query(hwm):
 ,O.ORDER_REF_13_VALUE referenceNumber13  --Spint 55 UPSGLD-15868
 ,O.ORDER_REF_14_VALUE referenceNumber14  --Spint 55 UPSGLD-15868
 ,O.ORDER_REF_15_VALUE referenceNumber15  --Spint 55 UPSGLD-15868
+=======
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 ,O.OriginTimeZone AS shipmentCreateOnDateTimeZone
 ,O.DestinationTimeZone AS originalScheduledDeliveryDateTimeZone
 ,date_format(O.DateTimeShipped, 'yyyy-MM-dd HH:mm:ss.SSS') AS shippedDateTime
@@ -745,7 +980,10 @@ end
 ,claim_paid.ReferenceValue AS claimAmountPaid
 ,'' AS claimAmountPaidCurrency
 ,man.Activity_name_LIST AS WIP_ActivityName
+<<<<<<< HEAD
 ,man.Activity_name_LIST AS WIP_ActivityName_2
+=======
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 ,dm.DetailMilestone AS DetailMilestone
 ,'shipmentCanceledBy' shipmentCanceledBy
 ,O.UPSOrderNumber upsShipmentNumber
@@ -758,7 +996,11 @@ end
 ,NULL AS shipmentLineCanceledReason
 ,CASE WHEN O.IS_INBOUND=0 THEN 'Outbound'
 	WHEN O.IS_INBOUND=1 THEN 'Inbound'
+<<<<<<< HEAD
      WHEN O.IS_INBOUND=2 THEN 'Movement'
+=======
+     WHEN O.IS_INBOUND=2 THEN 'Managed Transportation'
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 	 END AS shipmentType
 ,date_format(O.DateTimeCancelled, 'yyyy-MM-dd HH:mm:ss.SSS') AS DateTimeCancelled
 ,date_format(O.DateTimeReceived, 'yyyy-MM-dd HH:mm:ss.SSS') AS shipmentPlaceDateTime
@@ -776,17 +1018,29 @@ end
 ,date_format(O.ScheduleShipmentDate, 'yyyy-MM-dd HH:mm:ss.SSS') As expectedShipByDateTime 
 ,O.TransactionTypeName templateType
 ,O.DestinationLocationCode AS ShipmentDestination_destinationLocationCode
+<<<<<<< HEAD
 ,pdate.PickUpDate
+=======
+,date_format(pdate.PickUpDate, 'yyyy-MM-dd HH:mm:ss.SSS') as PickUpDate
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 ,CASE when max_act.activity_flag =1 then date_format(max_act.ActivityDate, 'yyyy-MM-dd HH:mm:ss.SSS') else null end as actualDeliveryDateTime_inbound
 ,CASE WHEN O.IS_ASN=1 THEN  'ASN' ELSE 'Transport Order' END AS inboundType
 ,O.IS_ASN
 ,date_format(max_act.estimatedDeliveryDateTime, 'yyyy-MM-dd HH:mm:ss.SSS') as estimatedDeliveryDateTime_inbound
 ,date_format(max_act.claimClosureDateTime, 'yyyy-MM-dd HH:mm:ss.SSS') as claimClosureDateTime
+<<<<<<< HEAD
 ,FTTR.LoadLatestDeliveryDate
+=======
+,date_format(FTTR.LoadLatestDeliveryDate, 'yyyy-MM-dd HH:mm:ss.SSS') as LoadLatestDeliveryDate
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 ,O.Freight_Carriercode  
 ,O.WAYBILL_AIRBILL_NUM  
 ,O.UPSOrderNumber AS FTZShipmentNumber
 ,SUR.shipunit_reference AS shipment_referenceType
+<<<<<<< HEAD
+=======
+,sir.shipitem_reference AS transportation_referenceType
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 ,O.ActualScheduledDeliveryDateTimeZone
 ,wse.WAREHOUSE_CODE as LocationCode
 ,o.SourceSystemName
@@ -800,15 +1054,36 @@ end
 ,wse.POSTAL_CODE wse_postalCode
 ,wse.COUNTRY wse_country 
 ,max_act.claimStatus
+<<<<<<< HEAD
 ,O.PickUPDateTime AS originalPickupDateTime
+=======
+,date_format(O.PickUPDateTime , 'yyyy-MM-dd HH:mm:ss.SSS')  AS originalPickupDateTime
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 ,case when o.rn > 1 then 1 else nvl(o.is_deleted,0) end as is_deleted
 ,date_format(o.ActualDeliveryDate , 'yyyy-MM-dd HH:mm:ss.SSS') as ActualDeliveryDate
 ,max_act.ActivityCodeDelivery_status as ActivityCodeDelivery_status
 ,date_format(max_act.m1_ActualDeliveryDateTime , 'yyyy-MM-dd HH:mm:ss.SSS') as m1_ActualDeliveryDateTime
+<<<<<<< HEAD
 --,date_format(max_act.ma_shipmentEstimatedDateTime , 'yyyy-MM-dd HH:mm:ss.SSS') as ma_shipmentEstimatedDateTime --UPSGLD-15116
 ,CASE WHEN o.SourceSystemKey = 1002 THEN date_format(O.EstimatedDeliveryDateTime , 'yyyy-MM-dd HH:mm:ss.SSS') ELSE date_format(max_act.ma_shipmentEstimatedDateTime , 'yyyy-MM-dd HH:mm:ss.SSS') END as ma_shipmentEstimatedDateTime
 ,cast(ol.SKUQuantity_sum as bigint) as SKUQuantity_sum
 ,o.OrderLineCount
+=======
+,CASE WHEN o.SourceSystemKey = 1002 THEN date_format(O.EstimatedDeliveryDateTime , 'yyyy-MM-dd HH:mm:ss.SSS') ELSE date_format(max_act.ma_shipmentEstimatedDateTime , 'yyyy-MM-dd HH:mm:ss.SSS') END as ma_shipmentEstimatedDateTime
+,cast(ol.SKUQuantity_sum as bigint) as SKUQuantity_sum
+,o.OrderLineCount
+,date_format(max_act.ma_ShipmentDeliveryDate , 'yyyy-MM-dd') as ShipmentDeliveryDate
+,date_format(max_act.ma_shipmentReceivedDate , 'yyyy-MM-dd HH:mm:ss.SSS') as shipmentReceivedDate
+,date_format(max_act.ma_ActivityDate_1 , 'yyyy-MM-dd HH:mm:ss.SSS') as ma_ActivityDate_1
+,date_format(max_act.ma_ActivityDate_2 , 'yyyy-MM-dd HH:mm:ss.SSS') as ma_ActivityDate_2
+,date_format(max_act.ma_ActivityDate_2 , 'yyyy-MM-dd') as ma_ActivityDate_part_2
+,date_format(max_act.ma_ActivityDate_1 , 'yyyy-MM-dd') as ma_ActivityDate_part_1
+,array(nvl(date_format(max_act.ma_ActivityDate_1 , 'yyyy-MM-dd'), ''), nvl(date_format(max_act.ma_ActivityDate_2 , 'yyyy-MM-dd'), '') ) AS ma_ActivityDate_list
+,case when nvl(date_format(max_act.ma_ActivityDate_1 , 'yyyy-MM-dd HH:mm:ss.SSS'), '')=nvl(date_format(max_act.ma_ActivityDate_2 , 'yyyy-MM-dd HH:mm:ss.SSS'), '') then array(nvl(date_format(max_act.ma_ActivityDate_1 , 'yyyy-MM-dd HH:mm:ss.SSS'), '')) else array(nvl(date_format(max_act.ma_ActivityDate_1 , 'yyyy-MM-dd HH:mm:ss.SSS'), ''), nvl(date_format(max_act.ma_ActivityDate_2 , 'yyyy-MM-dd HH:mm:ss.SSS'), '') ) end as ma_ActivityDate_list_distinct
+,il.inbound_line_count
+,il.inbound_ShippedQuantity_sum
+,il.inbound_cases_sum
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 ,o.is_managed
 ,CASE WHEN O.CurrentMilestone = 'DELIVERED' THEN CASE WHEN O.SourceSystemKey = 1002 THEN O.proof_of_delivery_name WHEN O.SourceSystemKey <> 1002 THEN max_act.proof_of_delivery_name ELSE NULL END END AS ProofofDelivery_Name -- change log
 ,max_act.proof_of_delivery_date_time -- change log
@@ -817,12 +1092,25 @@ end
 ,O.TemperatureRange_Max AS temperatureThresholdMax -- change log
 ,O.TemperatureRange_UOM AS temperatureThresholdUOM -- change log
 ,O.TemperatureThreshold  -- change log
+<<<<<<< HEAD
 ,inb_line_sil.inbound_shipment_listing    ---->sprint 54
+=======
+,max_act.activity_Movement_flag
+,O.EquipmentType as equipmentType
+,inb_line.TransportOrderNumber as TransportOrderNumber
+,max_act.claimStatus_movement
+,inb_line_sil.inbound_shipment_listing
+,tmdm.MissedDeliveredCount_movement --UPSGLD-15476
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 ,tmd.MissedDeliveredCount
 	FROM {digital_summary_orders_vw} O
 	LEFT JOIN {digital_summary_transportation_callcheck} CC ON O.UPSTransportShipmentNumber = CC.UPSORDERNUMBER
 		AND CC.STATUSDETAILTYPE = 'TemperatureTracking'
 		AND CC.IS_LATEST_TEMPERATURE = 'Y'
+<<<<<<< HEAD
+=======
+        and CC.is_deleted = 0
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 	LEFT JOIN (SELECT DISTINCT CASE 
 				WHEN FTTR.TrasOnlyFlag <> 'TRANS_ONLY'
 					THEN FTTR.UpsWMSSourceSystemKey
@@ -835,6 +1123,10 @@ end
 				END UPSOrderNumber
                 ,MAX(FTTR.LoadLatestDeliveryDate) LoadLatestDeliveryDate
                 FROM {digital_summary_transportation} FTTR
+<<<<<<< HEAD
+=======
+                where FTTR.is_deleted = 0
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 GROUP BY
                 CASE 
 				WHEN FTTR.TrasOnlyFlag <> 'TRANS_ONLY'
@@ -847,9 +1139,15 @@ end
 				ELSE FTTR.UpsOrderNumber
 				END ) FTTR ON 
 				FTTR.SourceSystemKey = O.SourceSystemKey AND FTTR.UpsOrderNumber = O.UPSOrderNumber
+<<<<<<< HEAD
 	LEFT JOIN {digital_summary_transportation_references} DSTR ON FTTR.UpsOrderNumber = DSTR.UPSOrderNumber
 		AND FTTR.SourceSystemKey = DSTR.SourceSystemKey AND DSTR.ReferenceLevel = 'LoadReference_Claim' 
 	AND DSTR.ReferenceType in ('Claim Type','Claim Amount')  
+=======
+	LEFT JOIN (select distinct DSTR1.UPSOrderNumber,DSTR1.SourceSystemKey   from {digital_summary_transportation_references} DSTR1 where  DSTR1.ReferenceLevel = 'LoadReference_Claim' 
+	AND DSTR1.ReferenceType in ('Claim Type','Claim Amount') and DSTR1.is_deleted = 0) DSTR ON FTTR.UpsOrderNumber = DSTR.UPSOrderNumber
+		AND FTTR.SourceSystemKey = DSTR.SourceSystemKey  
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 	LEFT JOIN last_location MA ON O.UPSOrderNumber = MA.UPSOrderNumber
 		AND ROWNUM = 1
 	LEFT JOIN last_location_wn_nt_delivered LLD ON O.UPSOrderNumber = LLD.UPSOrderNumber
@@ -872,17 +1170,29 @@ end
 	LEFT JOIN detail_milestone dm ON O.UPSOrderNumber = dm.UPSOrderNumber
 		AND O.AccountId = dm.AccountId
         AND O.DP_SERVICELINE_KEY = dm.DP_SERVICELINE_KEY
+<<<<<<< HEAD
     LEFT JOIN {digital_summary_transportation_references}  claim_type ON 
+=======
+	LEFT JOIN {digital_summary_transportation_references} claim_type ON 
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 	Case when o.IS_INBOUND = 0 then O.UPSTransportShipmentNumber else o.UPSOrderNumber end  = claim_type.UPSOrderNumber 
     and case when o.IS_INBOUND = 0 then claim_type.SourceSystemKey else o.SourceSystemKey end = claim_type.SourceSystemKey
     AND claim_type.ReferenceLevel = 'LoadReference_Claim'
 	AND claim_type.ReferenceType = 'Claim Type'
+<<<<<<< HEAD
 	LEFT JOIN {digital_summary_transportation_references}  claim_amt ON 
+=======
+	LEFT JOIN {digital_summary_transportation_references} claim_amt ON 
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 	Case when o.IS_INBOUND = 0 then O.UPSTransportShipmentNumber else o.UPSOrderNumber end  = claim_amt.UPSOrderNumber 
     and case when o.IS_INBOUND = 0 then claim_amt.SourceSystemKey else o.SourceSystemKey end = claim_amt.SourceSystemKey
 		AND claim_amt.ReferenceLevel = 'LoadReference_Claim'
 		AND claim_amt.ReferenceType = 'Claim Amount'
+<<<<<<< HEAD
 	LEFT JOIN {digital_summary_transportation_references}  claim_dt ON 
+=======
+	LEFT JOIN {digital_summary_transportation_references} claim_dt ON 
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 	 Case when o.IS_INBOUND = 0 then O.UPSTransportShipmentNumber else o.UPSOrderNumber end  = claim_dt.UPSOrderNumber 
      and case when o.IS_INBOUND = 0 then claim_dt.SourceSystemKey else o.SourceSystemKey end = claim_dt.SourceSystemKey
 	AND claim_dt.ReferenceLevel = 'LoadReference_Claim'
@@ -899,6 +1209,7 @@ end
             AND max_act.SourceSystemKey = o.SourceSystemKey 
 	LEFT JOIN shipunit_references SUR on SUR.UPSOrderNumber = o.UPSOrderNumber  
             AND SUR.SourceSystemKey = o.SourceSystemKey 
+<<<<<<< HEAD
     left join inbound_line_sil inb_line_sil   --->Sprint 54
     on inb_line_sil.UPSOrderNumber = o.UPSOrderNumber   ---> sprint 54       
     LEFT JOIN trans_missed_delivery tmd on tmd.UPSOrderNumber = o.UPSOrderNumber  
@@ -907,6 +1218,27 @@ end
     on o.FacilityId =wse.GLD_WAREHOUSE_MAPPED_KEY and o.SourceSystemKey = wse.SOURCE_SYSTEM_KEY
 
   """.format(**source_tables,digital_summary_orders_vw='digital_summary_orders_vw',hwm=hwm,days_back=days_back)
+=======
+    LEFT JOIN inbound_line il on il.UPSOrderNumber = o.UPSOrderNumber  
+            AND il.SourceSystemKey = o.SourceSystemKey 
+    left join {dim_warehouse} wse
+    on o.FacilityId =wse.GLD_WAREHOUSE_MAPPED_KEY and o.SourceSystemKey = wse.SOURCE_SYSTEM_KEY and wse.is_deleted = 0
+    left join shipitem_references sir
+    on sir.UPSOrderNumber = o.UPSOrderNumber  
+            AND sir.SourceSystemKey = o.SourceSystemKey
+    left join inbound_line2 inb_line
+    on inb_line.UPSOrderNumber = o.UPSOrderNumber  
+            AND inb_line.SourceSystemKey = o.SourceSystemKey
+    left join inbound_line_sil inb_line_sil
+    on inb_line_sil.UPSOrderNumber = o.UPSOrderNumber  
+            AND inb_line_sil.SourceSystemKey = o.SourceSystemKey
+    LEFT JOIN trans_missed_delivery_movement tmdm on tmdm.UPSOrderNumber = o.UPSOrderNumber  --UPSGLD-15476
+            AND tmdm.SourceSystemKey = o.SourceSystemKey
+    LEFT JOIN trans_missed_delivery tmd on tmd.UPSOrderNumber = o.UPSOrderNumber  
+           AND tmd.SourceSystemKey = o.SourceSystemKey
+
+  """.format(**source_tables,digital_summary_orders_vw='digital_summary_orders_vw',digital_summary_milestone_activity_vw='digital_summary_milestone_activity_vw',hwm=hwm,days_back=days_back)
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
     return (query)
 
 # COMMAND ----------
@@ -934,7 +1266,13 @@ def main():
     
         hwm=get_hwm('cosmos','cosmos_digital_summary_orders')
         logger.info(f'hwm cosmos_digital_summary_orders: {hwm}'.format(hwm=hwm))
+<<<<<<< HEAD
 #         hwm='1900-01-01 00:00:00' 
+=======
+#         hwm='1900-01-01 00:00:00'
+#         logger.info(f'overwridden hwm: {hwm}'.format(hwm=hwm))
+        
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
     
         logger.info("Creating digital summar orders view for incremental data")
         spark.sql(get_delta_query(hwm))
@@ -942,6 +1280,13 @@ def main():
         
         cnt=spark.sql("""select * from digital_summary_orders_vw""").count()
         logger.info('Insert count is {cnt}'.format(cnt=cnt))
+<<<<<<< HEAD
+=======
+        
+        logger.info("Creating digital summar milestone activity view for 90 days")
+        spark.sql(get_delta_query2(hwm))
+        logger.info("get_delta_query2 finished")  
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
     
         logger.info('Reading source data...')
     
@@ -955,7 +1300,10 @@ def main():
     
         logger.info('Writing to Cosmos: {container_name}'.format(container_name=cosmosContainerName))
         cosmos_df.write.format("cosmos.oltp").options(**cfg).mode("APPEND").save()
+<<<<<<< HEAD
 
+=======
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
         
         logger.info('setting hwm')
         r=set_hwm('cosmos','cosmos_digital_summary_orders',start_time,pid)
@@ -979,4 +1327,8 @@ def main():
 
 # COMMAND ----------
 
+<<<<<<< HEAD
 main()
+=======
+main()
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3

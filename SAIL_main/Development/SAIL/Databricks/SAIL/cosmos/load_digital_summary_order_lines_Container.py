@@ -135,8 +135,11 @@ collect_list(named_struct('itemNumber',LD.itemNumber,'vendorLotNumber',LD.Vendor
   ,LineRefVal3 AS lineReferenceNumber3      
   ,LineRefVal4 AS lineReferenceNumber4      
   ,LineRefVal5 AS lineReferenceNumber5  
+<<<<<<< HEAD
   ,cast(null as string) AS lineReferenceNumber6 ----> Code change sprint 54
   ,cast(null as string) AS lineReferenceNumber7 ----> Code change sprint 54
+=======
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
   ,case when OLD.orderlinedetail is null then array(named_struct('itemNumber','','vendorLotNumber','','vendorSerialNumber','','expirationDate','')) 
   else OLD.orderlinedetail end as OrderLineDetail
   ,OLVD.OrderLineVendorDetail as OrderLineVendorDetail
@@ -149,14 +152,21 @@ collect_list(named_struct('itemNumber',LD.itemNumber,'vendorLotNumber',LD.Vendor
   ,OL.order_line_sduk
   ,OL.FacilityId
   ,cast(null as string) as FacilityCode
+<<<<<<< HEAD
   ,dimDW.city as city ----> Code change sprint 54
   ,dimDW.country as country ----> Code change sprint 54
+=======
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
   ,cast(null as string) as CustomerPONumber
   ,cast(null as string) as asnNumber
   ,cast(null as string) as ClientASNNumber
   ,cast(null as string) as ReceiptNumber
   ,cast(null as timestamp) as CreationDateTime
+<<<<<<< HEAD
   -- ,cast(null as timestamp) as PutAwayDate -- Change log
+=======
+  ,cast(null as timestamp) as PutAwayDate
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
   ,date_format(O.SummaryDateTimeReceived, 'yyyy-MM-dd HH:mm:ss.SSS') as SummaryDateTimeReceived
   ,date_format(O.SummaryDateTimeShipped, 'yyyy-MM-dd HH:mm:ss.SSS') as SummaryDateTimeShipped
   ,IS_ASN
@@ -171,12 +181,19 @@ collect_list(named_struct('itemNumber',LD.itemNumber,'vendorLotNumber',LD.Vendor
   inner join {ol_delta_fetch_tv} dv on DSO.UpsOrderNumber = dv.UpsOrderNumber
   where is_inbound = 0
   and DateTimeReceived>=current_date-{days_back}
+<<<<<<< HEAD
+=======
+  --and AccountId in {account_id}
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
   --and UPSOrderNumber=''
   group by DSO.UPSOrderNumber,DSO.SourceSystemKey,is_inbound
   ) O 
   ON OL.UPSOrderNumber = O.UPSOrderNumber AND
   OL.SourceSystemKey = O.SourceSystemKey
+<<<<<<< HEAD
   left outer join silver.dim_Warehouse dimDW on dimDW.GLD_WAREHOUSE_MAPPED_KEY = OL.FacilityId  ----> Code change sprint 54
+=======
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 union
 SELECT 
     hash_key as id,
@@ -198,12 +215,17 @@ SELECT
     IL.InboundLine_Reference2 lineReferenceNumber1,  
     IL.InboundLine_Reference10 lineReferenceNumber2,  
     IL.InboundLine_Reference11 lineReferenceNumber3,
+<<<<<<< HEAD
     IL.InboundLine_Reference1 as lineReferenceNumber4, ----> Code change sprint 54
     IL.InboundLine_Reference3 as lineReferenceNumber5, ----> Code change sprint 54
     IL.InboundLine_Reference4 as lineReferenceNumber6, ----> Code change sprint 54
     IL.InboundLine_Reference5 as lineReferenceNumber7, ----> Code change sprint 54
     --cast(null as string) as lineReferenceNumber4,    ----> Code change sprint 54
 	--cast(null as string) as lineReferenceNumber5,    ----> Code change sprint 54
+=======
+	cast(null as string) as lineReferenceNumber4,
+	cast(null as string) as lineReferenceNumber5,
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
     (select case when collect_set(named_struct('itemNumber',LD.itemNumber, 'vendorLotNumber',LD.VendorLotNumber,'vendorSerialNumber',LD.VendorSerialNumber,'expirationDate',LD.EXPIRATION_DATE)) = array() then array(named_struct('itemNumber',null, 'vendorLotNumber',null,'vendorSerialNumber',null,'expirationDate',null)) 
 else collect_set(named_struct('itemNumber',LD.itemNumber, 'vendorLotNumber',LD.VendorLotNumber,'vendorSerialNumber',LD.VendorSerialNumber,'expirationDate',LD.EXPIRATION_DATE))
 end val
@@ -223,14 +245,22 @@ end val
     cast(null as string) as order_line_sduk,
 	IL.FacilityId,
 	IL.FacilityCode,
+<<<<<<< HEAD
     dimDW.city as city, ----> Code change sprint 54
     dimDW.country as country, ----> Code change sprint 54
+=======
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 	IL.ClientPONumber AS CustomerPONumber,
     IL.UPSASNNumber AS asnNumber, 
 	IL.ClientASNNumber,
     IL.ReceiptNumber,
+<<<<<<< HEAD
     IL.CreationDateTime,
     -- IL.PutAwayDate, -- Change log
+=======
+    date_format(IL.CreationDateTime, 'yyyy-MM-dd HH:mm:ss.SSS') CreationDateTime,
+    IL.PutAwayDate,
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
     date_format(O.SummaryDateTimeReceived, 'yyyy-MM-dd HH:mm:ss.SSS') as SummaryDateTimeReceived,
     date_format(O.SummaryDateTimeShipped, 'yyyy-MM-dd HH:mm:ss.SSS') as SummaryDateTimeShipped,
     IS_ASN,
@@ -244,14 +274,22 @@ end val
   inner join {ol_delta_fetch_tv} dv on DSO.UpsOrderNumber = dv.UpsOrderNumber
   where is_inbound = 1
   and DateTimeReceived>=current_date-{days_back}
+<<<<<<< HEAD
+=======
+  --and AccountId in {account_id}
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
   --and UPSOrderNumber=''
   group by DSO.UPSOrderNumber,DSO.SourceSystemKey,is_inbound
   ) O 
   ON 
   IL.UPSOrderNumber = O.UPSOrderNumber  AND 
   IL.SourceSystemKey = case when O.SourceSystemKey=1011 then IL.SourceSystemKey else  O.SourceSystemKey end
+<<<<<<< HEAD
   left outer join silver.dim_warehouse dimDW on dimDW.warehouse_code = IL.FacilityCode ----> Code change sprint 54
   """.format(**source_tables, ol_delta_fetch_tv='ol_delta_fetch_tv',days_back=days_back)
+=======
+  """.format(**source_tables, ol_delta_fetch_tv='ol_delta_fetch_tv',days_back=days_back,account_id=account_id)
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
   return (query)
 
 # COMMAND ----------
@@ -277,7 +315,11 @@ def main():
     audit_result['process_id'] = pid
     
     hwm=get_hwm('cosmos','cosmos_digital_summary_order_lines')
+<<<<<<< HEAD
     #hwm='1900-01-01 00:00:00'
+=======
+#     hwm='1900-01-01 00:00:00'
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 #     if hwm=='1900-01-01 00:00:00':
 #       d = timedelta(days = 90)
 #       back_date=st_dt - d

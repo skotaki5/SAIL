@@ -1,4 +1,5 @@
 # Databricks notebook source
+<<<<<<< HEAD
 # %sql
 # drop table if exists gold.digital_summary_orders                      ;
 # drop table if exists gold.digital_summary_order_lines                 ;
@@ -16,14 +17,22 @@
 # drop table if exists gold.digital_summary_inventory                   ;
 # drop table if exists gold.digital_summary_onboarded_systems           ;
 # drop table if exists gold.fact_order_dim_inc                          ;
+=======
+# MAGIC %sql drop table if exists gold.fact_order_dim_inc
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 
 # COMMAND ----------
 
 # MAGIC %sql
 # MAGIC create external table gold.fact_order_dim_inc(
 # MAGIC SOURCE_SYSTEM_KEY integer
+<<<<<<< HEAD
 # MAGIC ,ORDER_SDUK string
 # MAGIC ,UPS_ORDER_NUMBER string
+=======
+# MAGIC ,UPS_ORDER_NUMBER string
+# MAGIC ,ORDER_SDUK string
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC ,dl_update_timestamp	timestamp
 # MAGIC ,ORDER_PLACED_DATE timestamp
 # MAGIC ,UTC_ORDER_PLACED_DATE timestamp
@@ -130,12 +139,26 @@
 
 # COMMAND ----------
 
+<<<<<<< HEAD
+=======
+# MAGIC %sql drop table if exists gold.digital_summary_orders
+
+# COMMAND ----------
+
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC %sql
 # MAGIC create external table gold.digital_summary_orders
 # MAGIC (
 # MAGIC SourceSystemKey	int,
+<<<<<<< HEAD
 # MAGIC ORDER_SDUK	string,
 # MAGIC UPSOrderNumber	string,
+=======
+# MAGIC UPSOrderNumber	string,
+# MAGIC ORDER_SDUK	string,
+# MAGIC transport_rn int,
+# MAGIC TRANSPORTATION_SDUK string,
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC dl_update_timestamp	timestamp,
 # MAGIC DateTimeReceived	timestamp,
 # MAGIC UTC_DateTimeReceived	timestamp,
@@ -293,12 +316,24 @@
 
 # COMMAND ----------
 
+<<<<<<< HEAD
+=======
+# MAGIC %sql drop table if exists gold.digital_summary_milestone_activity
+
+# COMMAND ----------
+
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC %sql
 # MAGIC create external table gold.digital_summary_milestone_activity
 # MAGIC (
 # MAGIC SourceSystemKey	int,
+<<<<<<< HEAD
 # MAGIC hash_key	string,
 # MAGIC UPSOrderNumber	string,
+=======
+# MAGIC UPSOrderNumber	string,
+# MAGIC hash_key	string,
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC dl_update_timestamp	timestamp,
 # MAGIC is_deleted	int,
 # MAGIC TransactionTypeId	int,
@@ -315,6 +350,10 @@
 # MAGIC MilestoneName	string,
 # MAGIC ActivityId	int,
 # MAGIC ActivityName	string,
+<<<<<<< HEAD
+=======
+# MAGIC ACTIVITY_STATUS string,
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC ActivityCompletionFlag	string,
 # MAGIC PlannedMilestoneDate	timestamp,
 # MAGIC MilestoneDate	timestamp,
@@ -348,13 +387,30 @@
 
 # COMMAND ----------
 
+<<<<<<< HEAD
+=======
+# MAGIC %sql drop table if exists gold.digital_summary_transportation_callcheck
+
+# COMMAND ----------
+
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC %sql
 # MAGIC create external table gold.digital_summary_transportation_callcheck
 # MAGIC (
 # MAGIC SOURCESYSTEMKEY	int,
+<<<<<<< HEAD
 # MAGIC hash_key	string,
 # MAGIC dl_update_timestamp	timestamp,
 # MAGIC UPSORDERNUMBER	string,
+=======
+# MAGIC UPSORDERNUMBER	string,
+# MAGIC order_sduk	string,
+# MAGIC transportation_sduk	string,
+# MAGIC CALLCHECK_SDUK	string,
+# MAGIC transport_rn int,
+# MAGIC hash_key	string,
+# MAGIC dl_update_timestamp	timestamp,
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC ACCOUNTID	string,
 # MAGIC FACILITYID	string,
 # MAGIC DP_SERVICELINE_KEY	string,
@@ -382,9 +438,12 @@
 # MAGIC IsMotionDetected	boolean,
 # MAGIC Pressure	decimal(18,0),
 # MAGIC IsButtonPushed	boolean,
+<<<<<<< HEAD
 # MAGIC order_sduk	string,
 # MAGIC transportation_sduk	string,
 # MAGIC CALLCHECK_SDUK	string,
+=======
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC is_deleted	int,
 # MAGIC dl_hash	string,
 # MAGIC dl_insert_pipeline_id	string,
@@ -401,11 +460,24 @@
 
 # COMMAND ----------
 
+<<<<<<< HEAD
+=======
+# MAGIC %sql drop table if exists gold.digital_summary_transportation_references
+
+# COMMAND ----------
+
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC %sql
 # MAGIC create external table gold.digital_summary_transportation_references
 # MAGIC (
 # MAGIC SourceSystemKey	int,
 # MAGIC UPSOrderNumber	string,
+<<<<<<< HEAD
+=======
+# MAGIC ORDER_SDUK	string,
+# MAGIC REFERENCE_SDUK	string,
+# MAGIC TRANSPORTATION_SDUK	string,
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC hash_key	string,
 # MAGIC dl_update_timestamp	timestamp,
 # MAGIC LOAD_ID	string,
@@ -413,7 +485,10 @@
 # MAGIC ReferenceType	string,
 # MAGIC ReferenceValue	string,
 # MAGIC ReferenceLevel	string,
+<<<<<<< HEAD
 # MAGIC REFERENCE_SDUK	string,
+=======
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC is_deleted	int,
 # MAGIC dl_hash	string,
 # MAGIC dl_insert_pipeline_id	string,
@@ -430,12 +505,28 @@
 
 # COMMAND ----------
 
+<<<<<<< HEAD
+=======
+# MAGIC %sql drop table if exists gold.digital_summary_transportation_rates_charges
+
+# COMMAND ----------
+
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC %sql
 # MAGIC create external table gold.digital_summary_transportation_rates_charges
 # MAGIC (
 # MAGIC SourceSystemKey	int,
+<<<<<<< HEAD
 # MAGIC hash_key	string,
 # MAGIC UpsOrderNumber	string,
+=======
+# MAGIC UpsOrderNumber	string,
+# MAGIC order_sduk string,
+# MAGIC charge_sduk	string,
+# MAGIC transport_rn int,
+# MAGIC TRANSPORTATION_SDUK string,
+# MAGIC hash_key	string,
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC dl_update_timestamp	timestamp,
 # MAGIC load_id	string,
 # MAGIC SequenceNumber	string,
@@ -451,8 +542,11 @@
 # MAGIC ContractName	string,
 # MAGIC CurrencyCode	string,
 # MAGIC InvoiceNumber	string,
+<<<<<<< HEAD
 # MAGIC order_sduk string,
 # MAGIC charge_sduk	string,
+=======
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC is_deleted	int,
 # MAGIC dl_hash	string,
 # MAGIC dl_insert_pipeline_id	string,
@@ -469,13 +563,30 @@
 
 # COMMAND ----------
 
+<<<<<<< HEAD
+=======
+# MAGIC %sql drop table if exists gold.digital_summary_order_tracking
+
+# COMMAND ----------
+
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC %sql
 # MAGIC create external table gold.digital_summary_order_tracking
 # MAGIC (
 # MAGIC SourceSystemKey	int,
+<<<<<<< HEAD
 # MAGIC hash_key	string,
 # MAGIC UPSOrderNumber	string,
 # MAGIC dl_update_timestamp	timestamp,
+=======
+# MAGIC UPSOrderNumber	string,
+# MAGIC order_sduk	string,
+# MAGIC SHIPMENT_SDUK	string,
+# MAGIC TRANSPORTATION_SDUK string ,
+# MAGIC transport_rn int,
+# MAGIC dl_update_timestamp	timestamp,
+# MAGIC hash_key	string,
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC AccountId	string,
 # MAGIC FacilityId	string,
 # MAGIC DP_SERVICELINE_KEY	string,
@@ -495,8 +606,11 @@
 # MAGIC SHIPMENT_DESCRIPTION	string,
 # MAGIC LOAD_AREA	decimal(18,0),
 # MAGIC UOM	string,
+<<<<<<< HEAD
 # MAGIC order_sduk	string,
 # MAGIC SHIPMENT_SDUK	string,
+=======
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC UTC_SHIPMENT_CREATION_MONTH_PART_KEY bigint,
 # MAGIC is_deleted	int,
 # MAGIC dl_hash	string,
@@ -510,7 +624,15 @@
 # COMMAND ----------
 
 # MAGIC %sql
+<<<<<<< HEAD
 # MAGIC alter table gold.digital_summary_order_tracking SET TBLPROPERTIES ('dataSkippingNumIndexedCols'='5','targetFileSize'='33554432','tuneFileSizesForRewrites'='true')
+=======
+# MAGIC alter table gold.digital_summary_order_tracking SET TBLPROPERTIES ('dataSkippingNumIndexedCols'='7','targetFileSize'='33554432','tuneFileSizesForRewrites'='true')
+
+# COMMAND ----------
+
+# MAGIC %sql drop table if exists gold.digital_summary_transportation
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 
 # COMMAND ----------
 
@@ -518,9 +640,17 @@
 # MAGIC create external table gold.digital_summary_transportation
 # MAGIC (
 # MAGIC SourceSystemKey	int,
+<<<<<<< HEAD
 # MAGIC hash_key	string,
 # MAGIC UpsOrderNumber	string,
 # MAGIC dl_update_timestamp	timestamp,
+=======
+# MAGIC UpsOrderNumber	string,
+# MAGIC order_sduk	string,
+# MAGIC transportation_sduk	string,
+# MAGIC dl_update_timestamp	timestamp,
+# MAGIC hash_key	string,
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC UpsWMSOrderNumber	string,
 # MAGIC UpsWMSSourceSystemKey	int,
 # MAGIC SourceOrderType	string,
@@ -584,8 +714,11 @@
 # MAGIC AuthorizerName	string,
 # MAGIC DeliveryInstructions	string,
 # MAGIC DestinationContact	string,
+<<<<<<< HEAD
 # MAGIC order_sduk	string,
 # MAGIC transportation_sduk	string,
+=======
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC UTC_ORDER_PLACED_MONTH_PART_KEY bigint,
 # MAGIC is_deleted	int,
 # MAGIC dl_hash	string,
@@ -599,7 +732,15 @@
 # COMMAND ----------
 
 # MAGIC %sql
+<<<<<<< HEAD
 # MAGIC alter table gold.digital_summary_transportation SET TBLPROPERTIES ('dataSkippingNumIndexedCols'='6','targetFileSize'='33554432','tuneFileSizesForRewrites'='true')
+=======
+# MAGIC alter table gold.digital_summary_transportation SET TBLPROPERTIES ('dataSkippingNumIndexedCols'='8','targetFileSize'='33554432','tuneFileSizesForRewrites'='true')
+
+# COMMAND ----------
+
+# MAGIC %sql drop table if exists gold.digital_summary_order_lines
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 
 # COMMAND ----------
 
@@ -607,9 +748,17 @@
 # MAGIC create external table gold.digital_summary_order_lines
 # MAGIC (
 # MAGIC SourceSystemKey	int,
+<<<<<<< HEAD
 # MAGIC hash_key	string,
 # MAGIC UPSOrderNumber	string,
 # MAGIC dl_update_timestamp	timestamp,
+=======
+# MAGIC UPSOrderNumber	string,
+# MAGIC order_sduk	string,
+# MAGIC order_line_sduk	string,
+# MAGIC dl_update_timestamp	timestamp,
+# MAGIC hash_key	string,
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC AccountId	string,
 # MAGIC FacilityId	string,
 # MAGIC DP_SERVICELINE_KEY	string,
@@ -619,9 +768,15 @@
 # MAGIC SKU	string,
 # MAGIC SKUDescription	string,
 # MAGIC SKUDimensions	string,
+<<<<<<< HEAD
 # MAGIC SKUWeight	decimal(18,0),
 # MAGIC SKUQuantity	decimal(18,0),
 # MAGIC SKUShippedQuantity	decimal(18,0),
+=======
+# MAGIC SKUWeight	decimal(22,4),
+# MAGIC SKUQuantity	decimal(22,4),
+# MAGIC SKUShippedQuantity	decimal(22,4),
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC CarrierCode	string,
 # MAGIC TrackingNo	string,
 # MAGIC SKUDimensions_UOM	string,
@@ -635,8 +790,11 @@
 # MAGIC LineRefVal3	string,
 # MAGIC LineRefVal4	string,
 # MAGIC LineRefVal5	string,
+<<<<<<< HEAD
 # MAGIC order_sduk	string,
 # MAGIC order_line_sduk	string,
+=======
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC UTC_ORDER_PLACED_MONTH_PART_KEY bigint,
 # MAGIC is_deleted	int,
 # MAGIC dl_hash	string,
@@ -654,12 +812,26 @@
 
 # COMMAND ----------
 
+<<<<<<< HEAD
+=======
+# MAGIC %sql drop table if exists gold.digital_summary_order_lines_details
+
+# COMMAND ----------
+
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC %sql
 # MAGIC create external table gold.digital_summary_order_lines_details
 # MAGIC (
 # MAGIC SourceSystemKey	int,
+<<<<<<< HEAD
 # MAGIC hash_key	string,
 # MAGIC UPSOrderNumber	string,
+=======
+# MAGIC UPSOrderNumber	string,
+# MAGIC order_sduk	string,
+# MAGIC ORDER_LINE_DETAILS_SDUK	string,
+# MAGIC hash_key	string,
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC dl_update_timestamp	timestamp,
 # MAGIC LineNumber	string,
 # MAGIC AccountId	string,
@@ -676,8 +848,11 @@
 # MAGIC itemNumber	string,
 # MAGIC EXPIRATION_DATE	timestamp,
 # MAGIC WAREHOUSE_CODE	string,
+<<<<<<< HEAD
 # MAGIC order_sduk	string,
 # MAGIC ORDER_LINE_DETAILS_SDUK	string,
+=======
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC is_deleted	int,
 # MAGIC dl_hash	string,
 # MAGIC dl_insert_pipeline_id	string,
@@ -690,7 +865,15 @@
 # COMMAND ----------
 
 # MAGIC %sql
+<<<<<<< HEAD
 # MAGIC alter table gold.digital_summary_order_lines_details SET TBLPROPERTIES ('dataSkippingNumIndexedCols'='5','targetFileSize'='33554432','tuneFileSizesForRewrites'='true')
+=======
+# MAGIC alter table gold.digital_summary_order_lines_details SET TBLPROPERTIES ('dataSkippingNumIndexedCols'='6','targetFileSize'='33554432','tuneFileSizesForRewrites'='true')
+
+# COMMAND ----------
+
+# MAGIC %sql drop table if exists gold.digital_summary_milestone
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 
 # COMMAND ----------
 
@@ -698,8 +881,14 @@
 # MAGIC create external table gold.digital_summary_milestone
 # MAGIC (
 # MAGIC SourceSystemKey	int,
+<<<<<<< HEAD
 # MAGIC hash_key	string,
 # MAGIC UPSOrderNumber	string,
+=======
+# MAGIC UPSOrderNumber	string,
+# MAGIC order_sduk	string,
+# MAGIC hash_key	string,
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC dl_update_timestamp	timestamp,
 # MAGIC SourceSystemName	string,
 # MAGIC AccountId	string,
@@ -710,7 +899,11 @@
 # MAGIC TransactionTypeName	string,
 # MAGIC MilestoneName	string,
 # MAGIC MilestoneOrder	int,
+<<<<<<< HEAD
 # MAGIC order_sduk	string,
+=======
+# MAGIC 
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC UTC_ORDER_PLACED_MONTH_part_key string,
 # MAGIC is_deleted	int,
 # MAGIC dl_hash	string,
@@ -728,12 +921,25 @@
 
 # COMMAND ----------
 
+<<<<<<< HEAD
+=======
+# MAGIC %sql drop table if exists gold.digital_summary_exceptions
+
+# COMMAND ----------
+
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC %sql
 # MAGIC create external table gold.digital_summary_exceptions
 # MAGIC (
 # MAGIC SourceSystemKey	int,
+<<<<<<< HEAD
 # MAGIC hash_key	string,
 # MAGIC UPSOrderNumber	string,
+=======
+# MAGIC UPSOrderNumber	string,
+# MAGIC TRANSPORTATION_EXCEPTION_SDUK	string,
+# MAGIC hash_key	string,
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC dl_update_timestamp	timestamp,
 # MAGIC UTC_ExceptionCreatedDate	timestamp,
 # MAGIC OTZ_ExceptionCreatedDate	timestamp,
@@ -748,7 +954,10 @@
 # MAGIC ResponsibleParty	string,
 # MAGIC ExceptionPrimaryIndicator	decimal(18,0),
 # MAGIC ExceptionCount	int,
+<<<<<<< HEAD
 # MAGIC TRANSPORTATION_EXCEPTION_SDUK	string,
+=======
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC ExceptionType	string,
 # MAGIC DateTimeShippedTimeZone	string,
 # MAGIC ActualScheduledDeliveryDateTimeZone	string,
@@ -768,6 +977,13 @@
 
 # COMMAND ----------
 
+<<<<<<< HEAD
+=======
+# MAGIC %sql drop table if exists gold.digital_summary_transport_details
+
+# COMMAND ----------
+
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC %sql
 # MAGIC create external table gold.digital_summary_transport_details
 # MAGIC (
@@ -806,6 +1022,13 @@
 
 # COMMAND ----------
 
+<<<<<<< HEAD
+=======
+# MAGIC %sql drop table if exists gold.digital_summary_inbound_line
+
+# COMMAND ----------
+
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC %sql
 # MAGIC create external table gold.digital_summary_inbound_line
 # MAGIC (
@@ -823,18 +1046,32 @@
 # MAGIC ClientPONumber	string,
 # MAGIC ReceiptNumber	string,
 # MAGIC ReceiptLineNumber	string,
+<<<<<<< HEAD
 # MAGIC ShippedQuantity	decimal(18,0),
 # MAGIC ReceivedQuantity	decimal(18,0),
+=======
+# MAGIC ShippedQuantity	decimal(38,4),
+# MAGIC ReceivedQuantity	decimal(38,4),
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC CreationDateTime	timestamp,
 # MAGIC SKU	string,
 # MAGIC SKUDescription	string,
 # MAGIC SKUDimensions	string,
+<<<<<<< HEAD
 # MAGIC SKUWeight	decimal(18,0),
+=======
+# MAGIC SKUWeight	decimal(22,4),
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC SKUDimensions_UOM	string,
 # MAGIC SKUWeight_UOM	string,
 # MAGIC InboundLine_Reference2	string,
 # MAGIC InboundLine_Reference10	string,
 # MAGIC InboundLine_Reference11	string,
+<<<<<<< HEAD
+=======
+# MAGIC PutAwayDate	timestamp,
+# MAGIC 
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC is_deleted	int,
 # MAGIC dl_hash	string,
 # MAGIC dl_insert_pipeline_id	string,
@@ -851,6 +1088,13 @@
 
 # COMMAND ----------
 
+<<<<<<< HEAD
+=======
+# MAGIC %sql drop table if exists gold.digital_summary_inventory
+
+# COMMAND ----------
+
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC %sql
 # MAGIC create external table gold.digital_summary_inventory
 # MAGIC (SourceSystemKey	int
@@ -948,9 +1192,50 @@
 
 # COMMAND ----------
 
+<<<<<<< HEAD
 # %sql insert into gold.digital_summary_onboarded_systems
 # values (1002,'SPLUS',current_timestamp())
 
 # COMMAND ----------
 
 #  %sql select * from  gold.digital_summary_onboarded_systems
+=======
+# MAGIC %sql --insert into gold.digital_summary_onboarded_systems
+# MAGIC --values (1002,'SPLUS',current_timestamp())
+# MAGIC -- insert into gold.digital_summary_onboarded_systems
+# MAGIC -- values (1018,'SOFTEON-EFULFILLMENT',current_timestamp())
+# MAGIC -- ,(1012,'SOFTEON-BIRKSTOCK',current_timestamp())
+# MAGIC -- ,(1020,'SOFTEON-HELIX',current_timestamp())
+# MAGIC -- ,(1015,'SOFTEON-PILOT',current_timestamp())
+# MAGIC -- ,(1009,'SOFTEON-USPZN',current_timestamp())
+# MAGIC -- ,(1011,'MERCURYGATE',current_timestamp())
+# MAGIC -- ,(1014,'SOFTEON-APAC',current_timestamp())
+# MAGIC -- ,(1016,'SOFTEON-EU',current_timestamp())
+# MAGIC -- ,(1006,'SOFTEON-PHILIPS',current_timestamp())
+# MAGIC -- ,(1017,'SOFTEON-SWAROSKI',current_timestamp())
+# MAGIC -- ,(1004,'SOFTEON',current_timestamp())
+
+# COMMAND ----------
+
+# %sql select * from gold.digital_summary_onboarded_systems
+
+# COMMAND ----------
+
+# %sql
+# drop table if exists gold.digital_summary_orders                      ;
+# drop table if exists gold.digital_summary_order_lines                 ;
+# drop table if exists gold.digital_summary_order_lines_details         ;
+# drop table if exists gold.digital_summary_order_tracking              ;
+# drop table if exists gold.digital_summary_exceptions                  ;
+# drop table if exists gold.digital_summary_milestone                   ;
+# drop table if exists gold.digital_summary_milestone_activity          ;
+# drop table if exists gold.digital_summary_transportation              ;
+# drop table if exists gold.digital_summary_transport_details           ;
+# drop table if exists gold.digital_summary_transportation_callcheck    ;
+# drop table if exists gold.digital_summary_transportation_rates_charges;
+# drop table if exists gold.digital_summary_transportation_references   ;
+# drop table if exists gold.digital_summary_inbound_line                ;
+# drop table if exists gold.digital_summary_inventory                   ;
+# drop table if exists gold.digital_summary_onboarded_systems           ;
+# drop table if exists gold.fact_order_dim_inc                          ;
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
