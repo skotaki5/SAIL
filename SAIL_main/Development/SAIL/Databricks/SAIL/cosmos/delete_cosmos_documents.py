@@ -2,8 +2,11 @@
 """
 Author           : Vinoth Kumar Gopal
 Description      : This notebook is to delete document in cosmos container.
+<<<<<<< HEAD
+=======
 
 Vinoth: Version 1.1 --Added exception handling logic for retry
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 """
 
 # COMMAND ----------

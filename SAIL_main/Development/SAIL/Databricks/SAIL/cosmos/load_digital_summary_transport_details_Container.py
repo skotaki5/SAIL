@@ -63,6 +63,18 @@ else:
 # COMMAND ----------
 
 def get_delta_query(hwm):
+<<<<<<< HEAD
+  logger.debug("hwm: " + str(hwm))
+  query ="""
+        create or replace temp view digital_summary_transport_details_vw 
+        as
+         select TD.* from {digital_summary_transport_details} TD 
+         inner join {digital_summary_onboarded_systems} OS on  OS.sourcesystemkey=TD.SOURCE_SYSTEM_KEY 
+         where TD.dl_update_timestamp>='{hwm}' 
+        """.format(**source_tables,hwm=hwm)
+  logger.debug("query : " + query)
+  return(query)
+=======
     logger.debug("hwm: " + str(hwm))
     query ="""
 CREATE OR REPLACE TEMP VIEW digital_summary_transport_details_vw AS
@@ -84,11 +96,18 @@ INNER JOIN (SELECT DISTINCT UPSOrderNumber FROM change_stg) c ON TD.UPSOrderNumb
         """.format(**source_tables,hwm=hwm)
     logger.debug("query : " + query)
     return(query)
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 
 # COMMAND ----------
 
 def get_pre_cosmos_query():
   query = """
+<<<<<<< HEAD
+  select 
+hash_key AS id,
+UPSORDERNUMBER AS UpsOrderNumber,
+SOURCE_SYSTEM_KEY AS SourceSystemKey,
+=======
   WITH shipitem_references AS (
 			SELECT UPSOrderNumber
 					,SourceSystemKey
@@ -102,6 +121,7 @@ def get_pre_cosmos_query():
 hash_key AS id,
 td.UPSORDERNUMBER AS UpsOrderNumber,
 td.SOURCE_SYSTEM_KEY AS SourceSystemKey,
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 Account_ID,
 DP_SERVICELINE_KEY,
 DP_ORGENTITY_KEY,
@@ -117,11 +137,16 @@ TempRangeCode,
 PlannedWeightUOM,
 ActualWeightUOM,
 DimensionUOM,
+<<<<<<< HEAD
+is_deleted
+from {digital_summary_transport_details_vw}
+=======
 sr.shipitem_reference as transportation_referenceType,
 is_deleted
 from {digital_summary_transport_details_vw} td
 left outer join shipitem_references sr
 on td.UPSORDERNUMBER = sr.UPSOrderNumber and td.SOURCE_SYSTEM_KEY = sr.SourceSystemKey 
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
   """.format(**source_tables, digital_summary_transport_details_vw='digital_summary_transport_details_vw')
   return (query)
 
@@ -148,7 +173,10 @@ def main():
     audit_result['process_id'] = pid
     
     hwm=get_hwm('cosmos','cosmos_digital_summary_transport_details')
+<<<<<<< HEAD
+=======
     #hwm='1900-01-01 00:00:00'
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 #     if hwm=='1900-01-01 00:00:00':
 #       d = timedelta(days = 90)
 #       back_date=st_dt - d

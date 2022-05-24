@@ -188,5 +188,10 @@ audit_dict
 
 # COMMAND ----------
 
+<<<<<<< HEAD
+# MAGIC %sh 
+# MAGIC ls -ltr /dbfs/mnt/sail/bronze/gld360/inbound/landing/dim_customer
+=======
 # MAGIC %sh
 # MAGIC cat /dbfs/mnt/sail/logs/az_sync_logs/azCopy_20220316145354625832.log
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3

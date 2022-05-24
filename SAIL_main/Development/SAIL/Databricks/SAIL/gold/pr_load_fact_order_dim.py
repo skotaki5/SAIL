@@ -2,7 +2,11 @@
 # MAGIC %md
 # MAGIC <b>Versions</b>          
 # MAGIC v0.1  GD000012733@ups.com Vishal           
+<<<<<<< HEAD
+# MAGIC v0.2  GD000012780@ups.com Prashant Gupta    
+=======
 # MAGIC v0.2  GD000012780@ups.com Prashant Gupta  
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC V1.0  added new columns TT_IS_MANAGED,tt_is_inbound   by @Arpan
 
 # COMMAND ----------
@@ -41,6 +45,10 @@ else:
 # COMMAND ----------
 
 # DBTITLE 1,Source query
+<<<<<<< HEAD
+
+=======
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 def get_query(hwm,days_back):
   logger.debug("hwm: " + str(hwm))
   query =("""SELECT FTO.UPS_ORDER_NUMBER
@@ -232,4 +240,8 @@ def main():
 
 # COMMAND ----------
 
+<<<<<<< HEAD
 main()
+=======
+main()
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3

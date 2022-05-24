@@ -160,7 +160,10 @@ def main():
         audit_result['start_time'] = start_time
         ###############################################################################################
         hwm=get_hwm('gold',digital_summary_transportation_et)
+<<<<<<< HEAD
+=======
         hwm='1900-01-01 00:00:00'
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
         logger.info(f'hwm {digital_summary_transportation_et}: {hwm}')
         
         spark.sql(get_delta_query(hwm))
@@ -170,7 +173,11 @@ def main():
         logger.info("query finished")
                
         ###################### generating hash key  #############################
+<<<<<<< HEAD
+        hash_key_columns = ['UPSOrderNumber','SourceSystemKey','order_sduk','TRANSPORTATION_SDUK']###  !!!!! never change this order, doing this hash key will change and duplicates will go in cosmos !!!!!
+=======
         hash_key_columns = ['SourceSystemKey','UPSOrderNumber','order_sduk','TRANSPORTATION_SDUK']
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
         logger.debug(f"columns: {hash_key_columns}")
   
         logger.debug("Adding hash_key")

@@ -12,10 +12,13 @@ import json
 
 # COMMAND ----------
 
+<<<<<<< HEAD
+=======
 start_time = datetime.now(tz=timezone(time_zone)).strftime("%Y-%m-%d %H:%M:%S")
 
 # COMMAND ----------
 
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 def _get_logger(Timezone,level=logging.INFO):
     logging.Formatter.converter = lambda *args: datetime.now(tz=timezone(Timezone)).timetuple()
     logger = spark._jvm.org.apache.log4j
@@ -212,6 +215,8 @@ def mergeToDelta(source_df,target_folder_path,primary_keys):
 
 # COMMAND ----------
 
+<<<<<<< HEAD
+=======
 def insertOnlyMergeToDelta(source_df,target_folder_path,primary_keys):
     logger.debug("tgt_delta_path: " + target_folder_path)
     deltaDf = DeltaTable.forPath(spark, target_folder_path)
@@ -246,6 +251,7 @@ def insertOnlyMergeToDelta(source_df,target_folder_path,primary_keys):
 
 # COMMAND ----------
 
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 #def get_hwm(table_name):
 #  logger.debug("table_name : {table_name}".format(table_name=table_name))
 #  query = """SELECT max(hwm) from {delta_control} where table_name = lower('{table_name}')""".format(**source_tables,table_name=table_name)

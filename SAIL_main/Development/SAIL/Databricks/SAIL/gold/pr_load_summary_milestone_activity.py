@@ -1,5 +1,8 @@
 # Databricks notebook source
+<<<<<<< HEAD
+=======
 # MAGIC 
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 # MAGIC %md
 # MAGIC Author           : Arpan Bhardwaj  </br>
 # MAGIC Description      : This notebook is to load summary_milestone_activity table. </br>
@@ -162,10 +165,16 @@ SELECT
   FA.PROOF_OF_DELIVERY_DATE_TIME,--UPSGLD-14945
   FA.LATITUDE, --UPSGLD-14945
   FA.LONGITUDE, --UPSGLD-14945
+<<<<<<< HEAD
+  MA.MilestoneName,      
+  MA.ActivityCode,      
+  MA.ActivityName,      
+=======
   FA.ACTIVITY_STATUS,
   MA.MilestoneName,      
   MA.ActivityCode,      
   MA.ActivityName,
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
   MA.Milestone_Completion_Flag,  
   FA.activity_month_part_key
 FROM {fact_milestone_activity} FA 
@@ -232,8 +241,12 @@ AS
   ,cast(NULL as int)                                   AS MilestoneId              
   ,TM.MilestoneName                                    AS MilestoneName                  
   ,cast(NULL as int)                                   AS ActivityId                      
+<<<<<<< HEAD
+  ,ActivityName                                        AS ActivityName                     
+=======
   ,ActivityName                                        AS ActivityName  
   ,ACTIVITY_STATUS                                     AS ACTIVITY_STATUS
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
   ,ACTIVITY_DATE                                       AS ActivityDate               
   ,CASE WHEN ACTIVITY_DATE IS NULL 
            THEN 'N' 
@@ -275,8 +288,12 @@ SELECT
   FTO.TransactionTypeId,
   FA.MilestoneName,      
   FA.ActivityCode,      
+<<<<<<< HEAD
+  FA.ActivityName,      
+=======
   FA.ActivityName,
   FA.ACTIVITY_STATUS,
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
   FA.Milestone_Completion_Flag,      
   NVL(UPS_TRANSPORT_INBOUND_ORDER_NUMBER,FTO.UPS_ORDER_NUMBER) AS UPSOrderNumber,        
   CASE WHEN FTO.IS_MANAGED = 0 THEN FTO.UPS_ORDER_NUMBER ELSE  NULL END UPSASNNumber,      
@@ -310,8 +327,12 @@ SELECT
   FTO.TransactionTypeId,
   FA.MilestoneName,      
   FA.ActivityCode,      
+<<<<<<< HEAD
+  FA.ActivityName,      
+=======
   FA.ActivityName,   
   FA.ACTIVITY_STATUS,
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
   FA.Milestone_Completion_Flag,      
   FTO.UPS_ORDER_NUMBER AS UPSOrderNumber,      
   CASE WHEN FTO.IS_MANAGED = 0 THEN FTO.UPS_ORDER_NUMBER ELSE  NULL END UPSASNNumber,      
@@ -346,8 +367,12 @@ SELECT
   FTO.TransactionTypeId,
   FA.MilestoneName,      
   FA.ActivityCode,      
+<<<<<<< HEAD
+  FA.ActivityName,      
+=======
   FA.ActivityName,   
   FA.ACTIVITY_STATUS,
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
   FA.Milestone_Completion_Flag,      
   FTO.UPS_ORDER_NUMBER AS UPSOrderNumber,      
   CASE WHEN FTO.IS_MANAGED = 0 THEN FTO.UPS_ORDER_NUMBER ELSE  NULL END UPSASNNumber,      
@@ -381,8 +406,12 @@ SELECT
   FTO.TransactionTypeId,
   FA.MilestoneName,      
   FA.ActivityCode,      
+<<<<<<< HEAD
+  FA.ActivityName,      
+=======
   FA.ActivityName,  
   FA.ACTIVITY_STATUS,
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
   FA.Milestone_Completion_Flag,      
   FTO.UPS_ORDER_NUMBER AS UPSOrderNumber,      
   IA.UPSASNNumber,      
@@ -419,12 +448,20 @@ LEFT JOIN {map_transactiontype_milestone} TM ON TBL.TransactionTypeId = TM.Trans
 
 # DBTITLE 1,Query 6
 def get_query6():
+<<<<<<< HEAD
+  query = """
+=======
   query = f"""
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
   CREATE OR REPLACE TEMP VIEW MAX_Milestone_tv
 as
 SELECT  UPSOrderNumber,SourceSystemKey,AccountId, MAX(MilestoneOrder) AS MilestoneOrder          
 FROM DIGITAL_SUMMARY_MILESTONE_ACTIVITY_STG   
+<<<<<<< HEAD
+where ActivityDate is not null
+=======
 where ActivityDate is not null and ActivityDate >=current_date - {days_back}
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 GROUP BY UPSOrderNumber, SourceSystemKey,AccountId 
   """.format(**source_tables)
   logger.debug("query : " + query)
@@ -434,14 +471,22 @@ GROUP BY UPSOrderNumber, SourceSystemKey,AccountId
 
 # DBTITLE 1,Query 7
 def get_query7():
+<<<<<<< HEAD
+  query = """
+=======
   query = f"""
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
   create or replace temp view DIGITAL_SUMMARY_MILESTONE_ACTIVITY_STG1
 as 
 With Current_MAX_Milestone as
 (
 SELECT  UPSOrderNumber,SourceSystemKey,AccountId, MIN(ActivityDate) AS ActivityDate,MAX(MilestoneOrder) AS MilestoneOrder      
 FROM DIGITAL_SUMMARY_MILESTONE_ACTIVITY_STG         
+<<<<<<< HEAD
+WHERE MilestoneCompletionFlag = 'Y' and MilestoneDate IS NOT NULL and ActivityDate is not null 
+=======
 WHERE MilestoneCompletionFlag = 'Y' and MilestoneDate IS NOT NULL and ActivityDate is not null and ActivityDate >=current_date - {days_back}
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 GROUP BY UPSOrderNumber, SourceSystemKey, AccountId    
 ),
 Current_Milestone as
@@ -468,7 +513,10 @@ select SO.SourceSystemKey
         ,SO.MilestoneName
         ,SO.ActivityId
         ,SO.ActivityName
+<<<<<<< HEAD
+=======
         ,SO.ACTIVITY_STATUS
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
         ,SO.ActivityDate
         ,SO.ActivityCompletionFlag
         ,SO.PlannedMilestoneDate
@@ -526,7 +574,10 @@ def get_query8():
         ,SO.ActivityId
         ,SO.ActivityCode
         ,SO.ActivityName
+<<<<<<< HEAD
+=======
         ,SO.ACTIVITY_STATUS
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
         ,SO.ActivityDate
         ,SO.ActivityCompletionFlag
         ,SO.PlannedMilestoneDate

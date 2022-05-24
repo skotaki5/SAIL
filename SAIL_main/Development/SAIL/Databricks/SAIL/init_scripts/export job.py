@@ -10,6 +10,13 @@ headers = {"Authorization": Bearer_token}
 
 # COMMAND ----------
 
+<<<<<<< HEAD
+data_sail_load = r"""
+{
+        "timeout_seconds": 0,
+        "email_notifications": {},
+        "name": "sail_load",
+=======
 data = r"""
 {
 
@@ -18,6 +25,7 @@ data = r"""
             "no_alert_for_skipped_runs": false
         },
         "timeout_seconds": 0,
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
         "schedule": {
             "quartz_cron_expression": "26 15 0/12 * * ?",
             "timezone_id": "UTC",
@@ -26,7 +34,11 @@ data = r"""
         "max_concurrent_runs": 1,
         "tasks": [
             {
+<<<<<<< HEAD
+                "existing_cluster_id": "0414-112418-kc2c53vk",
+=======
                 "task_key": "silver_dim_customer",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/silver/autoloader_transform_bronze_to_silver",
                     "base_parameters": {
@@ -41,12 +53,21 @@ data = r"""
                         "tgt_table_name": "dim_customer"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+                "task_key": "silver_dim_customer"
+            },
+            {
+                "existing_cluster_id": "0414-112418-kc2c53vk",
+=======
                 "job_cluster_key": "s_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
                 "task_key": "silver_dim_warehouse",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/silver/autoloader_transform_bronze_to_silver",
                     "base_parameters": {
@@ -61,12 +82,21 @@ data = r"""
                         "tgt_table_name": "dim_warehouse"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+                "task_key": "silver_dim_warehouse"
+            },
+            {
+                "existing_cluster_id": "0414-112418-kc2c53vk",
+=======
                 "job_cluster_key": "s_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
                 "task_key": "silver_dim_source_system",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/silver/autoloader_transform_bronze_to_silver",
                     "base_parameters": {
@@ -81,12 +111,21 @@ data = r"""
                         "tgt_table_name": "dim_source_system"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+                "task_key": "silver_dim_source_system"
+            },
+            {
+                "existing_cluster_id": "0414-112418-kc2c53vk",
+=======
                 "job_cluster_key": "s_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
                 "task_key": "silver_dim_carrier_los",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/silver/autoloader_transform_bronze_to_silver",
                     "base_parameters": {
@@ -101,6 +140,14 @@ data = r"""
                         "tgt_table_name": "dim_carrier_los"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+                "task_key": "silver_dim_carrier_los"
+            },
+            {
+                "existing_cluster_id": "0414-112642-msjnoslr",
+=======
                 "job_cluster_key": "s_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
@@ -112,6 +159,7 @@ data = r"""
                         "task_key": "silver_dim_geo_location"
                     }
                 ],
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/silver/autoloader_transform_bronze_to_silver",
                     "base_parameters": {
@@ -128,6 +176,19 @@ data = r"""
                         "tgt_table_name": "fact_transportation"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+                "task_key": "silver_fact_transportation",
+                "depends_on": [
+                    {
+                        "task_key": "silver_dim_geo_location"
+                    }
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112418-kc2c53vk",
+=======
                 "job_cluster_key": "g_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
@@ -148,6 +209,7 @@ data = r"""
                         "task_key": "silver_dim_geo_location"
                     }
                 ],
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/silver/autoloader_transform_bronze_to_silver",
                     "base_parameters": {
@@ -162,6 +224,28 @@ data = r"""
                         "tgt_table_name": "fact_transportation_exception"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+                "task_key": "silver_fact_transportation_exception",
+                "depends_on": [
+                    {
+                        "task_key": "silver_dim_carrier_los"
+                    },
+                    {
+                        "task_key": "silver_dim_customer"
+                    },
+                    {
+                        "task_key": "silver_dim_warehouse"
+                    },
+                    {
+                        "task_key": "silver_dim_geo_location"
+                    }
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112418-kc2c53vk",
+=======
                 "job_cluster_key": "s_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
@@ -173,6 +257,7 @@ data = r"""
                         "task_key": "silver_dim_geo_location"
                     }
                 ],
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/silver/autoloader_transform_bronze_to_silver",
                     "base_parameters": {
@@ -187,12 +272,26 @@ data = r"""
                         "tgt_table_name": "dim_item"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+                "task_key": "silver_dim_item",
+                "depends_on": [
+                    {
+                        "task_key": "silver_dim_geo_location"
+                    }
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112418-kc2c53vk",
+=======
                 "job_cluster_key": "s_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
                 "task_key": "silver_dim_service",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/silver/autoloader_transform_bronze_to_silver",
                     "base_parameters": {
@@ -207,6 +306,14 @@ data = r"""
                         "tgt_table_name": "dim_service"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+                "task_key": "silver_dim_service"
+            },
+            {
+                "existing_cluster_id": "0414-112642-msjnoslr",
+=======
                 "libraries": [
                     {
                         "maven": {
@@ -220,6 +327,7 @@ data = r"""
             },
             {
                 "task_key": "silver_dim_geo_location",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/silver/autoloader_transform_bronze_to_silver",
                     "base_parameters": {
@@ -234,6 +342,14 @@ data = r"""
                         "tgt_table_name": "dim_geo_location"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+                "task_key": "silver_dim_geo_location"
+            },
+            {
+                "existing_cluster_id": "0414-112247-pl067542",
+=======
                 "libraries": [
                     {
                         "maven": {
@@ -247,6 +363,7 @@ data = r"""
             },
             {
                 "task_key": "silver_fact_order",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/silver/autoloader_transform_bronze_to_silver",
                     "base_parameters": {
@@ -263,6 +380,14 @@ data = r"""
                         "tgt_table_name": "fact_order"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+                "task_key": "silver_fact_order"
+            },
+            {
+                "existing_cluster_id": "0414-112642-msjnoslr",
+=======
                 "libraries": [
                     {
                         "maven": {
@@ -281,6 +406,7 @@ data = r"""
                         "task_key": "silver_dim_geo_location"
                     }
                 ],
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/silver/autoloader_transform_bronze_to_silver",
                     "base_parameters": {
@@ -297,17 +423,30 @@ data = r"""
                         "tgt_table_name": "fact_order_line"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+                "task_key": "silver_fact_order_line",
+=======
                 "job_cluster_key": "g_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
                 "task_key": "silver_fact_order_reference",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "depends_on": [
                     {
                         "task_key": "silver_dim_geo_location"
                     }
+<<<<<<< HEAD
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112642-msjnoslr",
+=======
                 ],
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/silver/autoloader_transform_bronze_to_silver",
                     "base_parameters": {
@@ -322,6 +461,19 @@ data = r"""
                         "tgt_table_name": "fact_order_reference"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+                "task_key": "silver_fact_order_reference",
+                "depends_on": [
+                    {
+                        "task_key": "silver_dim_geo_location"
+                    }
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112418-kc2c53vk",
+=======
                 "job_cluster_key": "g_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
@@ -336,6 +488,7 @@ data = r"""
                         "task_key": "silver_dim_customer"
                     }
                 ],
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/silver/autoloader_transform_bronze_to_silver",
                     "base_parameters": {
@@ -350,23 +503,37 @@ data = r"""
                         "tgt_table_name": "fact_transportation_callcheck"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+                "task_key": "silver_fact_transportation_callcheck",
+=======
                 "job_cluster_key": "s_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
                 "task_key": "silver_fact_transportation_rates_charges",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "depends_on": [
                     {
                         "task_key": "silver_dim_warehouse"
                     },
                     {
                         "task_key": "silver_dim_customer"
+<<<<<<< HEAD
+                    }
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112418-kc2c53vk",
+=======
                     },
                     {
                         "task_key": "silver_dim_carrier_los"
                     }
                 ],
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/silver/autoloader_transform_bronze_to_silver",
                     "base_parameters": {
@@ -381,12 +548,32 @@ data = r"""
                         "tgt_table_name": "fact_transportation_rates_charges"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+                "task_key": "silver_fact_transportation_rates_charges",
+                "depends_on": [
+                    {
+                        "task_key": "silver_dim_warehouse"
+                    },
+                    {
+                        "task_key": "silver_dim_customer"
+                    },
+                    {
+                        "task_key": "silver_dim_carrier_los"
+                    }
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112418-kc2c53vk",
+=======
                 "job_cluster_key": "s_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
                 "task_key": "silver_map_milestone_activity",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/silver/autoloader_transform_bronze_to_silver",
                     "base_parameters": {
@@ -401,12 +588,21 @@ data = r"""
                         "tgt_table_name": "map_milestone_activity"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+                "task_key": "silver_map_milestone_activity"
+            },
+            {
+                "existing_cluster_id": "0414-112418-kc2c53vk",
+=======
                 "job_cluster_key": "s_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
                 "task_key": "silver_account_type_digital",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/silver/autoloader_transform_bronze_to_silver",
                     "base_parameters": {
@@ -421,12 +617,21 @@ data = r"""
                         "tgt_table_name": "account_type_digital"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+                "task_key": "silver_account_type_digital"
+            },
+            {
+                "existing_cluster_id": "0414-112418-kc2c53vk",
+=======
                 "job_cluster_key": "s_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
                 "task_key": "silver_local_courier_service",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/silver/autoloader_transform_bronze_to_silver",
                     "base_parameters": {
@@ -441,12 +646,21 @@ data = r"""
                         "tgt_table_name": "local_courier_service"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+                "task_key": "silver_local_courier_service"
+            },
+            {
+                "existing_cluster_id": "0414-112418-kc2c53vk",
+=======
                 "job_cluster_key": "s_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
                 "task_key": "silver_map_ordersearchstatus",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/silver/autoloader_transform_bronze_to_silver",
                     "base_parameters": {
@@ -461,6 +675,14 @@ data = r"""
                         "tgt_table_name": "map_orderSearchStatus"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+                "task_key": "silver_map_ordersearchstatus"
+            },
+            {
+                "existing_cluster_id": "0414-112418-kc2c53vk",
+=======
                 "job_cluster_key": "s_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
@@ -472,6 +694,7 @@ data = r"""
                         "task_key": "silver_dim_warehouse"
                     }
                 ],
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/silver/autoloader_transform_bronze_to_silver",
                     "base_parameters": {
@@ -486,6 +709,19 @@ data = r"""
                         "tgt_table_name": "map_transactiontype_milestone"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+                "task_key": "silver_map_transactiontype_milestone",
+                "depends_on": [
+                    {
+                        "task_key": "silver_dim_warehouse"
+                    }
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112418-kc2c53vk",
+=======
                 "job_cluster_key": "s_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
@@ -497,6 +733,7 @@ data = r"""
                         "task_key": "silver_dim_customer"
                     }
                 ],
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/silver/autoloader_transform_bronze_to_silver",
                     "base_parameters": {
@@ -511,12 +748,26 @@ data = r"""
                         "tgt_table_name": "fact_transport_details"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+                "task_key": "silver_fact_transport_details",
+                "depends_on": [
+                    {
+                        "task_key": "silver_dim_customer"
+                    }
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112418-kc2c53vk",
+=======
                 "job_cluster_key": "s_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
                 "task_key": "silver_fact_milestone_activity",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/silver/autoloader_transform_bronze_to_silver",
                     "base_parameters": {
@@ -533,6 +784,14 @@ data = r"""
                         "tgt_table_name": "fact_milestone_activity"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+                "task_key": "silver_fact_milestone_activity"
+            },
+            {
+                "existing_cluster_id": "0414-112418-kc2c53vk",
+=======
                 "job_cluster_key": "s_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
@@ -550,6 +809,7 @@ data = r"""
                         "task_key": "silver_dim_carrier_los"
                     }
                 ],
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/silver/autoloader_transform_bronze_to_silver",
                     "base_parameters": {
@@ -566,12 +826,32 @@ data = r"""
                         "tgt_table_name": "fact_shipment"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+                "task_key": "silver_fact_shipment",
+                "depends_on": [
+                    {
+                        "task_key": "silver_dim_warehouse"
+                    },
+                    {
+                        "task_key": "silver_dim_customer"
+                    },
+                    {
+                        "task_key": "silver_dim_carrier_los"
+                    }
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112418-kc2c53vk",
+=======
                 "job_cluster_key": "s_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
                 "task_key": "silver_fact_order_line_details",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/silver/autoloader_transform_bronze_to_silver",
                     "base_parameters": {
@@ -586,11 +866,28 @@ data = r"""
                         "tgt_table_name": "fact_order_line_details"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+                "task_key": "silver_fact_order_line_details"
+            },
+            {
+                "existing_cluster_id": "0414-112247-pl067542",
+                "notebook_task": {
+                    "notebook_path": "/SAIL/gold/pr_load_fact_order_dim",
+                    "base_parameters": {
+                        "log_debug_mode": "N"
+                    }
+                },
+                "timeout_seconds": 0,
+                "email_notifications": {},
+=======
                 "job_cluster_key": "s_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "task_key": "gold_fact_order_dim_inc",
                 "depends_on": [
                     {
@@ -629,18 +926,32 @@ data = r"""
                     {
                         "task_key": "silver_map_milestone_activity"
                     }
+<<<<<<< HEAD
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112247-pl067542",
+                "notebook_task": {
+                    "notebook_path": "/SAIL/gold/pr_load_summary_milestone_activity",
+=======
                 ],
                 "notebook_task": {
                     "notebook_path": "/SAIL/gold/pr_load_fact_order_dim",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                     "base_parameters": {
                         "log_debug_mode": "N"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+=======
                 "job_cluster_key": "hv_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "task_key": "gold_digital_summary_milestone_activity",
                 "depends_on": [
                     {
@@ -655,18 +966,32 @@ data = r"""
                     {
                         "task_key": "silver_fact_milestone_activity"
                     }
+<<<<<<< HEAD
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112642-msjnoslr",
+                "notebook_task": {
+                    "notebook_path": "/SAIL/gold/pr_load_summary_transportation_callcheck",
+=======
                 ],
                 "notebook_task": {
                     "notebook_path": "/SAIL/gold/pr_load_summary_milestone_activity",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                     "base_parameters": {
                         "log_debug_mode": "N"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+=======
                 "job_cluster_key": "hv_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "task_key": "gold_digital_summary_transportation_callcheck",
                 "depends_on": [
                     {
@@ -678,18 +1003,32 @@ data = r"""
                     {
                         "task_key": "silver_fact_transportation_callcheck"
                     }
+<<<<<<< HEAD
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112247-pl067542",
+                "notebook_task": {
+                    "notebook_path": "/SAIL/gold/pr_load_summary_orders",
+=======
                 ],
                 "notebook_task": {
                     "notebook_path": "/SAIL/gold/pr_load_summary_transportation_callcheck",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                     "base_parameters": {
                         "log_debug_mode": "N"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+=======
                 "job_cluster_key": "g_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "task_key": "gold_digital_summary_orders",
                 "depends_on": [
                     {
@@ -716,18 +1055,32 @@ data = r"""
                     {
                         "task_key": "silver_fact_order_reference"
                     }
+<<<<<<< HEAD
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112247-pl067542",
+                "notebook_task": {
+                    "notebook_path": "/SAIL/cosmos/load_digital_summary_orders_Container",
+=======
                 ],
                 "notebook_task": {
                     "notebook_path": "/SAIL/gold/pr_load_summary_orders",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                     "base_parameters": {
                         "log_debug_mode": "N"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+=======
                 "job_cluster_key": "hv_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "task_key": "cosmos_digital_summary_orders",
                 "depends_on": [
                     {
@@ -757,18 +1110,32 @@ data = r"""
                     {
                         "task_key": "gold_digital_summary_transportation"
                     }
+<<<<<<< HEAD
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112642-msjnoslr",
+                "notebook_task": {
+                    "notebook_path": "/SAIL/gold/pr_load_summary_exceptions",
+=======
                 ],
                 "notebook_task": {
                     "notebook_path": "/SAIL/cosmos/load_digital_summary_orders_Container",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                     "base_parameters": {
                         "log_debug_mode": "N"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+=======
                 "job_cluster_key": "hv_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "task_key": "gold_digital_summary_exceptions",
                 "depends_on": [
                     {
@@ -777,6 +1144,17 @@ data = r"""
                     {
                         "task_key": "silver_map_milestone_activity"
                     }
+<<<<<<< HEAD
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112418-kc2c53vk",
+                "notebook_task": {
+                    "notebook_path": "/SAIL/gold/pr_load_summary_inbound_line"
+                },
+                "timeout_seconds": 0,
+                "email_notifications": {},
+=======
                 ],
                 "notebook_task": {
                     "notebook_path": "/SAIL/gold/pr_load_summary_exceptions",
@@ -789,6 +1167,7 @@ data = r"""
                 "email_notifications": {}
             },
             {
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "task_key": "gold_digital_summary_inbound_line",
                 "depends_on": [
                     {
@@ -803,6 +1182,12 @@ data = r"""
                     {
                         "task_key": "silver_dim_item"
                     }
+<<<<<<< HEAD
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112418-kc2c53vk",
+=======
                 ],
                 "notebook_task": {
                     "notebook_path": "/SAIL/gold/pr_load_summary_inbound_line"
@@ -818,6 +1203,7 @@ data = r"""
                         "task_key": "silver_dim_geo_location"
                     }
                 ],
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/silver/autoloader_transform_bronze_to_silver",
                     "base_parameters": {
@@ -832,11 +1218,33 @@ data = r"""
                         "tgt_table_name": "fact_inbound_line"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+                "task_key": "silver_fact_inbound_line",
+                "depends_on": [
+                    {
+                        "task_key": "silver_dim_geo_location"
+                    }
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112418-kc2c53vk",
+                "notebook_task": {
+                    "notebook_path": "/SAIL/gold/pr_load_summary_milestone",
+                    "base_parameters": {
+                        "log_debug_mode": "N"
+                    }
+                },
+                "timeout_seconds": 0,
+                "email_notifications": {},
+=======
                 "job_cluster_key": "s_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "task_key": "gold_digital_summary_milestone",
                 "depends_on": [
                     {
@@ -848,18 +1256,32 @@ data = r"""
                     {
                         "task_key": "silver_map_transactiontype_milestone"
                     }
+<<<<<<< HEAD
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112642-msjnoslr",
+                "notebook_task": {
+                    "notebook_path": "/SAIL/gold/pr_load_summary_order_lines",
+=======
                 ],
                 "notebook_task": {
                     "notebook_path": "/SAIL/gold/pr_load_summary_milestone",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                     "base_parameters": {
                         "log_debug_mode": "N"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+=======
                 "job_cluster_key": "s_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "task_key": "gold_digital_summary_order_lines",
                 "depends_on": [
                     {
@@ -871,18 +1293,32 @@ data = r"""
                     {
                         "task_key": "silver_dim_item"
                     }
+<<<<<<< HEAD
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112642-msjnoslr",
+                "notebook_task": {
+                    "notebook_path": "/SAIL/gold/pr_load_summary_order_lines_details",
+=======
                 ],
                 "notebook_task": {
                     "notebook_path": "/SAIL/gold/pr_load_summary_order_lines",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                     "base_parameters": {
                         "log_debug_mode": "N"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+=======
                 "job_cluster_key": "g_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "task_key": "gold_digital_summary_order_lines_details",
                 "depends_on": [
                     {
@@ -894,18 +1330,32 @@ data = r"""
                     {
                         "task_key": "silver_dim_item"
                     }
+<<<<<<< HEAD
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112642-msjnoslr",
+                "notebook_task": {
+                    "notebook_path": "/SAIL/gold/pr_load_summary_order_tracking",
+=======
                 ],
                 "notebook_task": {
                     "notebook_path": "/SAIL/gold/pr_load_summary_order_lines_details",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                     "base_parameters": {
                         "log_debug_mode": "N"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+=======
                 "job_cluster_key": "g_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "task_key": "gold_digital_summary_order_tracking",
                 "depends_on": [
                     {
@@ -917,18 +1367,32 @@ data = r"""
                     {
                         "task_key": "gold_fact_order_dim_inc"
                     }
+<<<<<<< HEAD
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112642-msjnoslr",
+                "notebook_task": {
+                    "notebook_path": "/SAIL/gold/pr_load_summary_transportation",
+=======
                 ],
                 "notebook_task": {
                     "notebook_path": "/SAIL/gold/pr_load_summary_order_tracking",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                     "base_parameters": {
                         "log_debug_mode": "N"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+=======
                 "job_cluster_key": "g_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "task_key": "gold_digital_summary_transportation",
                 "depends_on": [
                     {
@@ -937,18 +1401,32 @@ data = r"""
                     {
                         "task_key": "silver_fact_transportation"
                     }
+<<<<<<< HEAD
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112642-msjnoslr",
+                "notebook_task": {
+                    "notebook_path": "/SAIL/gold/pr_load_summary_transportation_details",
+=======
                 ],
                 "notebook_task": {
                     "notebook_path": "/SAIL/gold/pr_load_summary_transportation",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                     "base_parameters": {
                         "log_debug_mode": "N"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+=======
                 "job_cluster_key": "g_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "task_key": "gold_digital_summary_transportation_details",
                 "depends_on": [
                     {
@@ -957,18 +1435,32 @@ data = r"""
                     {
                         "task_key": "gold_fact_order_dim_inc"
                     }
+<<<<<<< HEAD
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112642-msjnoslr",
+                "notebook_task": {
+                    "notebook_path": "/SAIL/gold/pr_load_summary_transportation_rates_charges",
+=======
                 ],
                 "notebook_task": {
                     "notebook_path": "/SAIL/gold/pr_load_summary_transportation_details",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                     "base_parameters": {
                         "log_debug_mode": "N"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+=======
                 "job_cluster_key": "g_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "task_key": "gold_digital_summary_transportation_rates_charges",
                 "depends_on": [
                     {
@@ -980,18 +1472,32 @@ data = r"""
                     {
                         "task_key": "gold_fact_order_dim_inc"
                     }
+<<<<<<< HEAD
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112642-msjnoslr",
+                "notebook_task": {
+                    "notebook_path": "/SAIL/gold/pr_load_summary_transportation_references",
+=======
                 ],
                 "notebook_task": {
                     "notebook_path": "/SAIL/gold/pr_load_summary_transportation_rates_charges",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                     "base_parameters": {
                         "log_debug_mode": "N"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+=======
                 "job_cluster_key": "g_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "task_key": "gold_digital_summary_transportation_references",
                 "depends_on": [
                     {
@@ -1003,18 +1509,32 @@ data = r"""
                     {
                         "task_key": "gold_fact_order_dim_inc"
                     }
+<<<<<<< HEAD
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112642-msjnoslr",
+                "notebook_task": {
+                    "notebook_path": "/SAIL/cosmos/load_digital_summary_order_lines_Container",
+=======
                 ],
                 "notebook_task": {
                     "notebook_path": "/SAIL/gold/pr_load_summary_transportation_references",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                     "base_parameters": {
                         "log_debug_mode": "N"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+=======
                 "job_cluster_key": "g_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "task_key": "cosmos_digital_summary_order_lines",
                 "depends_on": [
                     {
@@ -1029,18 +1549,32 @@ data = r"""
                     {
                         "task_key": "gold_digital_summary_order_lines_details"
                     }
+<<<<<<< HEAD
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112418-kc2c53vk",
+                "notebook_task": {
+                    "notebook_path": "/SAIL/cosmos/load_digital_summary_milestone_activity_Container",
+=======
                 ],
                 "notebook_task": {
                     "notebook_path": "/SAIL/cosmos/load_digital_summary_order_lines_Container",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                     "base_parameters": {
                         "log_debug_mode": "N"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+=======
                 "job_cluster_key": "g_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "task_key": "cosmos_digital_summary_orders_milestone_activity",
                 "depends_on": [
                     {
@@ -1052,18 +1586,32 @@ data = r"""
                     {
                         "task_key": "silver_map_transactiontype_milestone"
                     }
+<<<<<<< HEAD
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112418-kc2c53vk",
+                "notebook_task": {
+                    "notebook_path": "/SAIL/cosmos/load_digital_summary_transportation_callcheck_Container",
+=======
                 ],
                 "notebook_task": {
                     "notebook_path": "/SAIL/cosmos/load_digital_summary_milestone_activity_Container",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                     "base_parameters": {
                         "log_debug_mode": "N"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+=======
                 "job_cluster_key": "s_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "task_key": "cosmos_digital_summary_transportation_callcheck",
                 "depends_on": [
                     {
@@ -1072,35 +1620,63 @@ data = r"""
                     {
                         "task_key": "gold_digital_summary_transportation_callcheck"
                     }
+<<<<<<< HEAD
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112642-msjnoslr",
+                "notebook_task": {
+                    "notebook_path": "/SAIL/cosmos/load_digital_summary_transport_details_Container",
+=======
                 ],
                 "notebook_task": {
                     "notebook_path": "/SAIL/cosmos/load_digital_summary_transportation_callcheck_Container",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                     "base_parameters": {
                         "log_debug_mode": "N"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+=======
                 "job_cluster_key": "s_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "task_key": "cosmos_digital_summary_transport_details",
                 "depends_on": [
                     {
                         "task_key": "gold_digital_summary_transportation_details"
                     }
+<<<<<<< HEAD
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112418-kc2c53vk",
+                "notebook_task": {
+                    "notebook_path": "/SAIL/cosmos/load_digital_summary_transportation_rates_charges_Container",
+=======
                 ],
                 "notebook_task": {
                     "notebook_path": "/SAIL/cosmos/load_digital_summary_transport_details_Container",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                     "base_parameters": {
                         "log_debug_mode": "N"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+=======
                 "job_cluster_key": "g_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "task_key": "cosmos_digital_summary_transportation_rates_charges",
                 "depends_on": [
                     {
@@ -1109,6 +1685,28 @@ data = r"""
                     {
                         "task_key": "gold_digital_summary_transportation_rates_charges"
                     }
+<<<<<<< HEAD
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112418-kc2c53vk",
+                "notebook_task": {
+                    "notebook_path": "/SAIL/silver/autoloader_transform_bronze_to_silver",
+                    "base_parameters": {
+                        "log_debug_mode": "N",
+                        "sort_values": "ActivityCode",
+                        "checkpoint_location": "/mnt/sail/bronze/gld360/inbound/checkpoint/wh_wip_mapping_activity",
+                        "src_folder_path": "/mnt/sail/bronze/gld360/inbound/landing/wh_wip_mapping_activity/",
+                        "hash_exclude_columns": "[]",
+                        "primary_keys": "[\"ActivityCode\",\"SOURCE_SYSTEM_KEY\"]",
+                        "target_folder_path": "/mnt/sail/silver/gld360/inbound/wh_wip_mapping_activity",
+                        "src_schema": "{\"fields\":[{\"metadata\":{},\"name\":\"Type\",\"nullable\":true,\"type\":\"string\"},{\"metadata\":{},\"name\":\"MilestoneName\",\"nullable\":true,\"type\":\"string\"},{\"metadata\":{},\"name\":\"ActivityName\",\"nullable\":true,\"type\":\"string\"},{\"metadata\":{},\"name\":\"ActivityCode\",\"nullable\":true,\"type\":\"string\"},{\"metadata\":{},\"name\":\"WIP_ActivityName\",\"nullable\":true,\"type\":\"string\"},{\"metadata\":{},\"name\":\"SOURCE_SYSTEM_KEY\",\"nullable\":true,\"type\":\"integer\"},{\"metadata\":{},\"name\":\"WIPActivityOrderId\",\"nullable\":true,\"type\":\"integer\"}],\"type\":\"struct\"}",
+                        "tgt_table_name": "wh_wip_mapping_activity"
+                    }
+                },
+                "timeout_seconds": 0,
+                "email_notifications": {},
+=======
                 ],
                 "notebook_task": {
                     "notebook_path": "/SAIL/cosmos/load_digital_summary_transportation_rates_charges_Container",
@@ -1121,6 +1719,7 @@ data = r"""
                 "email_notifications": {}
             },
             {
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "task_key": "silver_wh_wip_mapping_activity",
                 "depends_on": [
                     {
@@ -1135,6 +1734,12 @@ data = r"""
                     {
                         "task_key": "silver_dim_carrier_los"
                     }
+<<<<<<< HEAD
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112247-pl067542",
+=======
                 ],
                 "notebook_task": {
                     "notebook_path": "/SAIL/silver/autoloader_transform_bronze_to_silver",
@@ -1161,6 +1766,7 @@ data = r"""
                         "task_key": "silver_fact_order"
                     }
                 ],
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/silver/autoloader_deletes_bronze_to_silver",
                     "base_parameters": {
@@ -1177,11 +1783,41 @@ data = r"""
                         "tgt_table_name": "splus_src_deletes"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+                "task_key": "silver_fact_order_deletes",
+                "depends_on": [
+                    {
+                        "task_key": "silver_fact_order"
+                    }
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112418-kc2c53vk",
+                "notebook_task": {
+                    "notebook_path": "/SAIL/silver/autoloader_transform_bronze_to_silver",
+                    "base_parameters": {
+                        "log_debug_mode": "N",
+                        "sort_values": "ETL_UPDATE_DATE",
+                        "checkpoint_location": "/mnt/sail/bronze/gld360/inbound/checkpoint/fact_transportation_references",
+                        "src_folder_path": "/mnt/sail/bronze/gld360/inbound/landing/fact_transportation_references/",
+                        "hash_exclude_columns": "[\"ETL_INSERT_DATE\",\"ETL_UPDATE_DATE\",\"ETL_BATCH_NUMBER\"]",
+                        "primary_keys": "[ \"SOURCE_SYSTEM_KEY\",\"REFERENCE_SDUK\"]",
+                        "target_folder_path": "/mnt/sail/silver/gld360/inbound/fact_transportation_references",
+                        "src_schema": "{\"fields\":[{\"metadata\":{},\"name\":\"SOURCE_SYSTEM_KEY\",\"nullable\":true,\"type\":\"integer\"},{\"metadata\":{},\"name\":\"CLIENT_KEY\",\"nullable\":true,\"type\":\"decimal(18,0)\"},{\"metadata\":{},\"name\":\"LOAD_ID\",\"nullable\":true,\"type\":\"string\"},{\"metadata\":{},\"name\":\"UPS_ORDER_NUMBER\",\"nullable\":true,\"type\":\"string\"},{\"metadata\":{},\"name\":\"CLIENT_SDUK\",\"nullable\":true,\"type\":\"string\"},{\"metadata\":{},\"name\":\"SHIPUNIT_ID\",\"nullable\":true,\"type\":\"string\"},{\"metadata\":{},\"name\":\"REFERENCE_TYPE\",\"nullable\":true,\"type\":\"string\"},{\"metadata\":{},\"name\":\"REFRENCE_VALUE\",\"nullable\":true,\"type\":\"string\"},{\"metadata\":{},\"name\":\"REFERENCE_LEVEL\",\"nullable\":true,\"type\":\"string\"},{\"metadata\":{},\"name\":\"REFERENCE_SDUK\",\"nullable\":true,\"type\":\"string\"},{\"metadata\":{},\"name\":\"ETL_INSERT_DATE\",\"nullable\":true,\"type\":\"timestamp\"},{\"metadata\":{},\"name\":\"ETL_UPDATE_DATE\",\"nullable\":true,\"type\":\"timestamp\"},{\"metadata\":{},\"name\":\"ETL_BATCH_NUMBER\",\"nullable\":true,\"type\":\"decimal(18,0)\"}],\"type\":\"struct\"}",
+                        "tgt_table_name": "fact_transportation_references"
+                    }
+                },
+                "timeout_seconds": 0,
+                "email_notifications": {},
+=======
                 "job_cluster_key": "hv_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
             },
             {
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "task_key": "silver_fact_transportation_references",
                 "depends_on": [
                     {
@@ -1196,6 +1832,20 @@ data = r"""
                     {
                         "task_key": "silver_dim_carrier_los"
                     }
+<<<<<<< HEAD
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112418-kc2c53vk",
+                "notebook_task": {
+                    "notebook_path": "/SAIL/cosmos/load_dim_warehouse_Container",
+                    "base_parameters": {
+                        "log_debug_mode": "N"
+                    }
+                },
+                "timeout_seconds": 0,
+                "email_notifications": {},
+=======
                 ],
                 "notebook_task": {
                     "notebook_path": "/SAIL/silver/autoloader_transform_bronze_to_silver",
@@ -1216,6 +1866,7 @@ data = r"""
                 "email_notifications": {}
             },
             {
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "task_key": "cosmos_dim_warehouse",
                 "depends_on": [
                     {
@@ -1233,6 +1884,12 @@ data = r"""
                     {
                         "task_key": "silver_dim_warehouse"
                     }
+<<<<<<< HEAD
+                ]
+            },
+            {
+                "existing_cluster_id": "0414-112418-kc2c53vk",
+=======
                 ],
                 "notebook_task": {
                     "notebook_path": "/SAIL/cosmos/load_dim_warehouse_Container",
@@ -1246,6 +1903,7 @@ data = r"""
             },
             {
                 "task_key": "silver_map_temperature_range_details",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/silver/autoloader_transform_bronze_to_silver",
                     "base_parameters": {
@@ -1260,6 +1918,14 @@ data = r"""
                         "tgt_table_name": "map_temperature_range_details"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+                "task_key": "silver_map_temperature_range_details"
+            },
+            {
+                "existing_cluster_id": "0414-112418-kc2c53vk",
+=======
                 "job_cluster_key": "s_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
@@ -1271,12 +1937,26 @@ data = r"""
                         "task_key": "gold_digital_summary_orders"
                     }
                 ],
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/cosmos/load_digital_summary_orders_agg_Container",
                     "base_parameters": {
                         "log_debug_mode": "N"
                     }
                 },
+<<<<<<< HEAD
+                "timeout_seconds": 0,
+                "email_notifications": {},
+                "task_key": "cosmos_digital_summary_orders_agg",
+                "depends_on": [
+                    {
+                        "task_key": "gold_digital_summary_orders"
+                    }
+                ]
+            }
+        ]
+    }
+=======
                 "job_cluster_key": "s_job_cluster",
                 "timeout_seconds": 0,
                 "email_notifications": {}
@@ -1394,26 +2074,51 @@ data = r"""
         "format": "MULTI_TASK"
    
 }
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 """
 
 # COMMAND ----------
 
+<<<<<<< HEAD
+requests.post(endpoint, data=data_sail_load, headers=headers).json()
+=======
 requests.post(endpoint, data=data, headers=headers).json()
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 
 # COMMAND ----------
 
 data_inventory = r"""
 {
+<<<<<<< HEAD
+        "timeout_seconds": 0,
+        "email_notifications": {},
+        "name": "sail_inventory_load",
+        "schedule": {
+            "quartz_cron_expression": "36 45 0/12 * * ?",
+            "timezone_id": "UTC",
+            "pause_status": "PAUSED"
+        },
+=======
     
         "timeout_seconds": 0,
         "email_notifications": {},
         "name": "sail_inventory_load",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
         "max_concurrent_runs": 1,
         "tasks": [
             {
                 "job_cluster_key": "silver_fact_inventory_snapshot_cluster",
                 "libraries": [
                     {
+<<<<<<< HEAD
+                        "pypi": {
+                            "package": "azure-cosmos==4.2.0"
+                        }
+                    },
+                    {
+                        "maven": {
+                            "coordinates": "com.azure.cosmos.spark:azure-cosmos-spark_3-2_2-12:4.7.0"
+=======
                         "maven": {
                             "coordinates": "com.azure.cosmos.spark:azure-cosmos-spark_3-1_2-12:4.5.1"
                         }
@@ -1421,6 +2126,7 @@ data_inventory = r"""
                     {
                         "pypi": {
                             "package": "azure-cosmos==4.2.0"
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                         }
                     }
                 ],
@@ -1472,6 +2178,26 @@ data_inventory = r"""
                         "task_key": "gold_digital_summary_inventory"
                     }
                 ]
+<<<<<<< HEAD
+            },
+            {
+                "job_cluster_key": "silver_fact_inventory_snapshot_cluster",
+                "notebook_task": {
+                    "notebook_path": "/SAIL/cosmos/load_digital_summary_inventory_agg_Container",
+                    "base_parameters": {
+                        "log_debug_mode": "N"
+                    }
+                },
+                "timeout_seconds": 0,
+                "email_notifications": {},
+                "task_key": "load_digital_summary_inventory_agg_Container",
+                "depends_on": [
+                    {
+                        "task_key": "cosmos_digital_inventory_snapshot"
+                    }
+                ]
+=======
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
             }
         ],
         "job_clusters": [
@@ -1479,7 +2205,11 @@ data_inventory = r"""
                 "job_cluster_key": "silver_fact_inventory_snapshot_cluster",
                 "new_cluster": {
                     "cluster_name": "",
+<<<<<<< HEAD
+                    "spark_version": "10.3.x-scala2.12",
+=======
                     "spark_version": "9.1.x-scala2.12",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                     "spark_conf": {
                         "spark.databricks.delta.preview.enabled": "true"
                     },
@@ -1490,16 +2220,23 @@ data_inventory = r"""
                     },
                     "node_type_id": "Standard_E16ds_v4",
                     "driver_node_type_id": "Standard_F8",
+<<<<<<< HEAD
+=======
                     "spark_env_vars": {
                         "PYSPARK_PYTHON": "/databricks/python3/bin/python3"
                     },
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                     "enable_elastic_disk": true,
                     "num_workers": 4
                 }
             }
         ]
+<<<<<<< HEAD
+    }
+=======
     
 }
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 """
 
 # COMMAND ----------
@@ -1510,14 +2247,27 @@ requests.post(endpoint, data=data_inventory, headers=headers).json()
 
 data_cosmos_delete = r"""
 {
+<<<<<<< HEAD
+        "timeout_seconds": 0,
+        "email_notifications": {},
+        "name": "sail_cosmos_delete",
+        "schedule": {
+            "quartz_cron_expression": "32 0 5 * * ?",
+            "timezone_id": "Asia/Kolkata",
+            "pause_status": "PAUSED"
+        },
+=======
     
         "timeout_seconds": 0,
         "email_notifications": {},
         "name": "sail_cosmos_delete",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
         "max_concurrent_runs": 1,
         "tasks": [
             {
                 "job_cluster_key": "cosmos_delete_jobcluster",
+<<<<<<< HEAD
+=======
                 "libraries": [
                     {
                         "maven": {
@@ -1530,6 +2280,7 @@ data_cosmos_delete = r"""
                         }
                     }
                 ],
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/cosmos/delete_cosmos_documents",
                     "base_parameters": {
@@ -1555,6 +2306,15 @@ data_cosmos_delete = r"""
                 "job_cluster_key": "cosmos_delete_jobcluster",
                 "libraries": [
                     {
+<<<<<<< HEAD
+                        "pypi": {
+                            "package": "azure-cosmos==4.2.0"
+                        }
+                    },
+                    {
+                        "maven": {
+                            "coordinates": "com.azure.cosmos.spark:azure-cosmos-spark_3-2_2-12:4.7.0"
+=======
                         "maven": {
                             "coordinates": "com.azure.cosmos.spark:azure-cosmos-spark_3-1_2-12:4.5.1"
                         }
@@ -1597,6 +2357,7 @@ data_cosmos_delete = r"""
                     {
                         "pypi": {
                             "package": "azure-cosmos==4.2.0"
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                         }
                     }
                 ],
@@ -1618,6 +2379,8 @@ data_cosmos_delete = r"""
             },
             {
                 "job_cluster_key": "cosmos_delete_jobcluster",
+<<<<<<< HEAD
+=======
                 "libraries": [
                     {
                         "maven": {
@@ -1630,6 +2393,7 @@ data_cosmos_delete = r"""
                         }
                     }
                 ],
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/cosmos/delete_cosmos_documents",
                     "base_parameters": {
@@ -1653,6 +2417,8 @@ data_cosmos_delete = r"""
             },
             {
                 "job_cluster_key": "cosmos_delete_jobcluster",
+<<<<<<< HEAD
+=======
                 "libraries": [
                     {
                         "maven": {
@@ -1665,6 +2431,7 @@ data_cosmos_delete = r"""
                         }
                     }
                 ],
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/cosmos/delete_cosmos_documents",
                     "base_parameters": {
@@ -1688,6 +2455,8 @@ data_cosmos_delete = r"""
             },
             {
                 "job_cluster_key": "cosmos_delete_jobcluster",
+<<<<<<< HEAD
+=======
                 "libraries": [
                     {
                         "maven": {
@@ -1700,6 +2469,7 @@ data_cosmos_delete = r"""
                         }
                     }
                 ],
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/cosmos/delete_cosmos_documents",
                     "base_parameters": {
@@ -1723,6 +2493,8 @@ data_cosmos_delete = r"""
             },
             {
                 "job_cluster_key": "cosmos_delete_jobcluster",
+<<<<<<< HEAD
+=======
                 "libraries": [
                     {
                         "maven": {
@@ -1735,6 +2507,7 @@ data_cosmos_delete = r"""
                         }
                     }
                 ],
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/cosmos/delete_cosmos_documents",
                     "base_parameters": {
@@ -1778,6 +2551,32 @@ data_cosmos_delete = r"""
                         "task_key": "sail_vacuum"
                     }
                 ]
+<<<<<<< HEAD
+            },
+            {
+                "job_cluster_key": "cosmos_delete_jobcluster",
+                "notebook_task": {
+                    "notebook_path": "/SAIL/cosmos/delete_cosmos_documents",
+                    "base_parameters": {
+                        "cosmos_database_name": "SAIL",
+                        "log_debug_mode": "N",
+                        "cosmos_container_name": "digital_summary_inventory",
+                        "other_del_cond": "c.is_deleted = 1",
+                        "date_column": "NA",
+                        "partition_key": "AccountId",
+                        "days_back_to_del": "365"
+                    }
+                },
+                "timeout_seconds": 0,
+                "email_notifications": {},
+                "task_key": "del_digital_summary_inventory",
+                "depends_on": [
+                    {
+                        "task_key": "del_digital_summary_milestone_activity"
+                    }
+                ]
+=======
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
             }
         ],
         "job_clusters": [
@@ -1785,7 +2584,11 @@ data_cosmos_delete = r"""
                 "job_cluster_key": "cosmos_delete_jobcluster",
                 "new_cluster": {
                     "cluster_name": "",
+<<<<<<< HEAD
+                    "spark_version": "10.2.x-scala2.12",
+=======
                     "spark_version": "10.1.x-scala2.12",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                     "spark_conf": {
                         "spark.databricks.delta.preview.enabled": "true"
                     },
@@ -1801,8 +2604,12 @@ data_cosmos_delete = r"""
                 }
             }
         ]
+<<<<<<< HEAD
+    }
+=======
     
 }
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 """
 
 # COMMAND ----------
@@ -1813,6 +2620,20 @@ requests.post(endpoint, data=data_cosmos_delete, headers=headers).json()
 
 data_optimize = r"""
 {
+<<<<<<< HEAD
+        "timeout_seconds": 0,
+        "email_notifications": {},
+        "name": "optimize_sail_load",
+        "schedule": {
+            "quartz_cron_expression": "33 45 3/4 * * ?",
+            "timezone_id": "UTC",
+            "pause_status": "PAUSED"
+        },
+        "max_concurrent_runs": 1,
+        "tasks": [
+            {
+                "job_cluster_key": "hv_job_cluster",
+=======
     
         "timeout_seconds": 0,
         "email_notifications": {},
@@ -1821,6 +2642,7 @@ data_optimize = r"""
         "tasks": [
             {
                 "existing_cluster_id": "0301-051816-jv2btm8l",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -1834,7 +2656,11 @@ data_optimize = r"""
                 "description": ""
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "hv_job_cluster",
+=======
                 "existing_cluster_id": "0301-051816-jv2btm8l",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -1847,7 +2673,11 @@ data_optimize = r"""
                 "task_key": "fact_order"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "hv_job_cluster",
+=======
                 "existing_cluster_id": "0301-051816-jv2btm8l",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -1860,7 +2690,11 @@ data_optimize = r"""
                 "task_key": "fact_shipment"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "hv_job_cluster",
+=======
                 "existing_cluster_id": "0301-051816-jv2btm8l",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -1873,7 +2707,11 @@ data_optimize = r"""
                 "task_key": "fact_order_line_details"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "hv_job_cluster",
+=======
                 "existing_cluster_id": "0301-051816-jv2btm8l",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -1886,7 +2724,11 @@ data_optimize = r"""
                 "task_key": "fact_transportation"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "hv_job_cluster",
+=======
                 "existing_cluster_id": "0301-051816-jv2btm8l",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -1899,7 +2741,11 @@ data_optimize = r"""
                 "task_key": "fact_transportation_exception"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "hv_job_cluster",
+=======
                 "existing_cluster_id": "0301-051816-jv2btm8l",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -1912,7 +2758,11 @@ data_optimize = r"""
                 "task_key": "fact_order_reference"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "hv_job_cluster",
+=======
                 "existing_cluster_id": "0301-051816-jv2btm8l",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -1925,7 +2775,11 @@ data_optimize = r"""
                 "task_key": "fact_order_line"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "hv_job_cluster",
+=======
                 "existing_cluster_id": "0301-051816-jv2btm8l",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -1938,7 +2792,11 @@ data_optimize = r"""
                 "task_key": "fact_inbound_line"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "hv_job_cluster",
+=======
                 "existing_cluster_id": "0301-051816-jv2btm8l",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -1951,7 +2809,11 @@ data_optimize = r"""
                 "task_key": "fact_transportation_callcheck"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "hv_job_cluster",
+=======
                 "existing_cluster_id": "0301-051816-jv2btm8l",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -1964,7 +2826,11 @@ data_optimize = r"""
                 "task_key": "fact_transportation_rates_charges"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "hv_job_cluster",
+=======
                 "existing_cluster_id": "0301-051816-jv2btm8l",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -1977,7 +2843,11 @@ data_optimize = r"""
                 "task_key": "fact_transportation_references"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "hv_job_cluster",
+=======
                 "existing_cluster_id": "0301-051816-jv2btm8l",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -1990,7 +2860,11 @@ data_optimize = r"""
                 "task_key": "fact_transport_details"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "s_job_cluster",
+=======
                 "existing_cluster_id": "0301-051519-b7nxfnfn",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -2003,7 +2877,11 @@ data_optimize = r"""
                 "task_key": "dim_customer"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "s_job_cluster",
+=======
                 "existing_cluster_id": "0301-051519-b7nxfnfn",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -2016,7 +2894,11 @@ data_optimize = r"""
                 "task_key": "dim_warehouse"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "s_job_cluster",
+=======
                 "existing_cluster_id": "0301-051519-b7nxfnfn",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -2029,7 +2911,11 @@ data_optimize = r"""
                 "task_key": "dim_item"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "s_job_cluster",
+=======
                 "existing_cluster_id": "0301-051519-b7nxfnfn",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -2042,7 +2928,11 @@ data_optimize = r"""
                 "task_key": "dim_carrier_los"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "s_job_cluster",
+=======
                 "existing_cluster_id": "0301-051519-b7nxfnfn",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -2055,7 +2945,11 @@ data_optimize = r"""
                 "task_key": "dim_service"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "s_job_cluster",
+=======
                 "existing_cluster_id": "0301-051519-b7nxfnfn",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -2068,7 +2962,11 @@ data_optimize = r"""
                 "task_key": "dim_geo_location"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "g_job_cluster",
+=======
                 "existing_cluster_id": "0301-051624-cl37tr9d",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -2081,7 +2979,11 @@ data_optimize = r"""
                 "task_key": "fact_order_dim_inc"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "g_job_cluster",
+=======
                 "existing_cluster_id": "0301-051624-cl37tr9d",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -2094,7 +2996,11 @@ data_optimize = r"""
                 "task_key": "digital_summary_order_lines"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "g_job_cluster",
+=======
                 "existing_cluster_id": "0301-051624-cl37tr9d",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -2107,7 +3013,11 @@ data_optimize = r"""
                 "task_key": "digital_summary_milestone"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "g_job_cluster",
+=======
                 "existing_cluster_id": "0301-051624-cl37tr9d",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -2120,7 +3030,11 @@ data_optimize = r"""
                 "task_key": "digital_summary_transport_details"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "s_job_cluster",
+=======
                 "existing_cluster_id": "0301-051519-b7nxfnfn",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -2133,7 +3047,11 @@ data_optimize = r"""
                 "task_key": "digital_summary_milestone_activity"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "s_job_cluster",
+=======
                 "existing_cluster_id": "0301-051519-b7nxfnfn",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -2146,7 +3064,11 @@ data_optimize = r"""
                 "task_key": "digital_summary_transportation_callcheck"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "s_job_cluster",
+=======
                 "existing_cluster_id": "0301-051519-b7nxfnfn",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -2159,7 +3081,11 @@ data_optimize = r"""
                 "task_key": "digital_summary_transportation_references"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "s_job_cluster",
+=======
                 "existing_cluster_id": "0301-051519-b7nxfnfn",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -2172,7 +3098,11 @@ data_optimize = r"""
                 "task_key": "digital_summary_transportation_rates_charges"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "s_job_cluster",
+=======
                 "existing_cluster_id": "0301-051519-b7nxfnfn",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -2185,7 +3115,11 @@ data_optimize = r"""
                 "task_key": "digital_summary_order_tracking"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "g_job_cluster",
+=======
                 "existing_cluster_id": "0301-051624-cl37tr9d",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -2198,7 +3132,11 @@ data_optimize = r"""
                 "task_key": "digital_summary_orders"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "hv_job_cluster",
+=======
                 "existing_cluster_id": "0301-051816-jv2btm8l",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -2211,7 +3149,11 @@ data_optimize = r"""
                 "task_key": "digital_summary_transportation"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "g_job_cluster",
+=======
                 "existing_cluster_id": "0301-051624-cl37tr9d",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -2224,7 +3166,11 @@ data_optimize = r"""
                 "task_key": "digital_summary_order_lines_details"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "g_job_cluster",
+=======
                 "existing_cluster_id": "0301-051624-cl37tr9d",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -2237,7 +3183,11 @@ data_optimize = r"""
                 "task_key": "digital_summary_exceptions"
             },
             {
+<<<<<<< HEAD
+                "job_cluster_key": "g_job_cluster",
+=======
                 "existing_cluster_id": "0301-051624-cl37tr9d",
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
                 "notebook_task": {
                     "notebook_path": "/SAIL/includes/optimize/optimize",
                     "base_parameters": {
@@ -2249,13 +3199,80 @@ data_optimize = r"""
                 "email_notifications": {},
                 "task_key": "digital_summary_inbound_line"
             }
+<<<<<<< HEAD
+        ],
+        "job_clusters": [
+            {
+                "job_cluster_key": "hv_job_cluster",
+                "new_cluster": {
+                    "cluster_name": "",
+                    "spark_version": "10.1.x-scala2.12",
+                    "spark_conf": {
+                        "spark.databricks.delta.preview.enabled": "true"
+                    },
+                    "azure_attributes": {
+                        "availability": "ON_DEMAND_AZURE",
+                        "first_on_demand": 1,
+                        "spot_bid_max_price": -1
+                    },
+                    "node_type_id": "Standard_E16ds_v4",
+                    "driver_node_type_id": "Standard_E8d_v4",
+                    "enable_elastic_disk": true,
+                    "num_workers": 8
+                }
+            },
+            {
+                "job_cluster_key": "s_job_cluster",
+                "new_cluster": {
+                    "cluster_name": "",
+                    "spark_version": "10.1.x-scala2.12",
+                    "spark_conf": {
+                        "spark.databricks.delta.preview.enabled": "true"
+                    },
+                    "azure_attributes": {
+                        "availability": "ON_DEMAND_AZURE",
+                        "first_on_demand": 1,
+                        "spot_bid_max_price": -1
+                    },
+                    "node_type_id": "Standard_F32s_v2",
+                    "driver_node_type_id": "Standard_E8ds_v4",
+                    "enable_elastic_disk": true,
+                    "num_workers": 4
+                }
+            },
+            {
+                "job_cluster_key": "g_job_cluster",
+                "new_cluster": {
+                    "cluster_name": "",
+                    "spark_version": "10.1.x-scala2.12",
+                    "spark_conf": {
+                        "spark.databricks.delta.preview.enabled": "true"
+                    },
+                    "azure_attributes": {
+                        "availability": "ON_DEMAND_AZURE",
+                        "first_on_demand": 1,
+                        "spot_bid_max_price": -1
+                    },
+                    "node_type_id": "Standard_E8ds_v4",
+                    "driver_node_type_id": "Standard_E8ds_v4",
+                    "enable_elastic_disk": true,
+                    "num_workers": 8
+                }
+            }
+        ]
+    }
+=======
         ]
     
 }
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 """
 
 # COMMAND ----------
 
+<<<<<<< HEAD
+requests.post(endpoint, data=data_optimize, headers=headers).json()
+=======
 data_sail_v2 = r'''
 {
 	"settings": {
@@ -3511,3 +4528,4 @@ requests.post(endpoint, data=data_sail_v2, headers=headers).reason
 # COMMAND ----------
 
 requests.post(endpoint, data=data_sail_v2, headers=headers).json()
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3

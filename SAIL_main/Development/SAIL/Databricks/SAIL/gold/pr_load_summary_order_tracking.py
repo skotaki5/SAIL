@@ -81,7 +81,10 @@ def get_query(hwm):
      FTO.IS_MANAGED,
      FTO.IS_INBOUND,
      concat(FTO.source_system_key,'||',FTO.order_sduk) as order_sduk,
+<<<<<<< HEAD
+=======
      concat(FTTR.source_system_key,'||',FTTR.TRANSPORTATION_SDUK) as TRANSPORTATION_SDUK,
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
      0 as is_deleted
     FROM {fact_order_dim_inc}  FTO  
       INNER JOIN delta_fetch_tv FTV on (FTO.UPS_ORDER_NUMBER = FTV.UPS_ORDER_NUMBER)
@@ -90,9 +93,13 @@ def get_query(hwm):
        AND CASE WHEN FTTR.TRANS_ONLY_FLAG <> 'TRANS ONLY' THEN FTTR.UPS_WMS_ORDER_NUMBER ELSE FTTR.UPS_ORDER_NUMBER END = FTO.UPS_ORDER_NUMBER) 
     WHERE FTO.ORDER_PLACED_DATE BETWEEN date_sub('{hwm}', {days_back}) AND current_timestamp
     )
+<<<<<<< HEAD
+    
+=======
     ,
     temp as 
     (
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
      SELECT   
           AccountId,
           FacilityId,
@@ -116,7 +123,10 @@ def get_query(hwm):
           FS.LOAD_AREA,
           FS.UOM,
           FTO.order_sduk,
+<<<<<<< HEAD
+=======
           FTO.TRANSPORTATION_SDUK,
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
           FS.UTC_SHIPMENT_CREATION_MONTH_PART_KEY,
           concat(FS.SOURCE_SYSTEM_KEY,'||',FS.SHIPMENT_SDUK) as SHIPMENT_SDUK,
           FTO.is_deleted
@@ -148,13 +158,18 @@ def get_query(hwm):
           FS.LOAD_AREA,
           FS.UOM,
           FTO.order_sduk,
+<<<<<<< HEAD
+=======
           FTO.TRANSPORTATION_SDUK,
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
           FS.UTC_SHIPMENT_CREATION_MONTH_PART_KEY,
           concat(FS.SOURCE_SYSTEM_KEY,'||',FS.SHIPMENT_SDUK) as SHIPMENT_SDUK,
           FTO.is_deleted
           FROM fact_order_cte  FTO   
          INNER JOIN {fact_shipment}  FS ON (FTO.UPS_TRANSPORT_SOURCE_SYSTEM_KEY = FS.SOURCE_SYSTEM_KEY AND FTO.UPS_TRANSPORT_ORDER_NUMBER = FS.UPS_ORDER_NUMBER)  
        WHERE NVL(CARRIER_MODE,CARRIER_GROUP) IN ('LTL','TL')
+<<<<<<< HEAD
+=======
    )
    select 
           AccountId,
@@ -187,6 +202,7 @@ def get_query(hwm):
                              ) as transport_rn,
           is_deleted
           from temp
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
      """.format(**source_tables,hwm=hwm,days_back=days_back)
   logger.debug("query : " + query)
   return (query)
@@ -220,7 +236,11 @@ def main():
         src_df = spark.sql(get_query(hwm))
         logger.info("query finished")
         ###################### generating hash key  #############################
+<<<<<<< HEAD
+        hash_key_columns = ['AccountId','FacilityId','UPSOrderNumber','order_sduk','SHIPMENT_SDUK']
+=======
         hash_key_columns = ['SourceSystemKey','UPSOrderNumber','order_sduk','SHIPMENT_SDUK','transport_rn']
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
         logger.debug(f"columns: {hash_key_columns}")
   
         logger.debug("Adding hash_key")
@@ -241,8 +261,13 @@ def main():
         ##################### audit columns  ######################################
         logger.debug("Adding audit columns")
         src_df = add_audit_columns(src_df, pid,datetime.now(),datetime.now())
+<<<<<<< HEAD
+  
+        primary_keys = ['SourceSystemKey','UPSOrderNumber','order_sduk','SHIPMENT_SDUK','AccountId','FacilityId']
+=======
 
         primary_keys = ['SourceSystemKey','UPSOrderNumber','order_sduk','SHIPMENT_SDUK','transport_rn']
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
         logger.debug('primary_keys: {primary_keys}'.format(primary_keys=primary_keys))
   
         logger.info(f'Merging to delta path: {digital_summary_order_tracking_path}')
@@ -253,7 +278,11 @@ def main():
         logger.info('setting hwm')
         res=set_hwm('gold',digital_summary_order_tracking_et,start_time,pid)
         logger.info(res)
+<<<<<<< HEAD
+      
+=======
         src_df.unpersist()
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
         ############################ ETL AUDIT #########################################################
         audit_result['end_time'] = datetime.now(tz=timezone(time_zone)).strftime("%Y-%m-%d %H:%M:%S")
         audit_result['status'] = 'success'
@@ -267,12 +296,19 @@ def main():
         raise
     finally:
         logger.info("audit_result: {audit_result}".format(audit_result=audit_result))
+<<<<<<< HEAD
+=======
         
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
         audit(audit_result)
 
 # COMMAND ----------
 
+<<<<<<< HEAD
+main()
+=======
 main()
 
 # COMMAND ----------
 
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3

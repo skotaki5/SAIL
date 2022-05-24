@@ -68,6 +68,10 @@ tracking_job_list=['sail_load','optimize_sail_load']
 check=1
 timeout=0
 timeout_threshhold = 2*60*60
+<<<<<<< HEAD
+
+=======
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
 while(check and timeout < timeout_threshhold):
     check=0
     r=requests.get(tracking_endpoint, headers=headers).json()
@@ -88,3 +92,10 @@ restart_cluster()
         
 
     
+<<<<<<< HEAD
+
+
+# COMMAND ----------
+
+=======
+>>>>>>> 13a8667ae9724d5105090f0851a8408bc1b29ef3
